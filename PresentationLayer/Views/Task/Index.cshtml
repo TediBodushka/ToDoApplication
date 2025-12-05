@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TaskItem>
+
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<h2>Tasks</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create new task</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Completed</th>
+            <th>Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 1;
+        }
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@t.Title</td>
+                <td>@t.DueDate?.ToString("yyyy-MM-dd")</td>
+                <td>@t.IsCompleted</td>
+                <td>@t.Category?.Title</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@t.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@t.Id">Delete</a>
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

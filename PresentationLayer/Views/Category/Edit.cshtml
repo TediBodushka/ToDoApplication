@@ -1,0 +1,16 @@
+﻿@model BusinessLayer.Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<h2>Edit Category</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="form-group">
+        <label>Title</label>
+        <input name="title" class="form-control" value="@Model.Title" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+</form>

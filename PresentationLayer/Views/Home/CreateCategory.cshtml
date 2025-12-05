@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "New category";
+}
+
+<style>
+    .color-option {
+        width: 40px;
+        height: 30px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        border-radius: 4px;
+        box-shadow: none;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+        input[type="radio"]:checked + .color-option {
+            border: 3px solid black;
+        }
+</style>
+
+<div class="modal-page">
+    <div class="modal-card">
+        <h2>New category</h2>
+
+        <form asp-action="CreateCategory" method="post">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input name="title" class="form-control" placeholder="Enter category name" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Color</label>
+                <div class="d-flex flex-wrap gap-2">
+                    <label>
+                        <input type="radio" name="color" value="blue">
+                        <div class="category-card card-blue color-option"></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="purple">
+                        <div class="category-card card-purple color-option"></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="orange">
+                        <div class="category-card card-orange color-option"></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="pink">
+                        <div class="category-card card-pink color-option"></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="green">
+                        <div class="category-card card-green color-option"></div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="red">
+                        <div class="category-card card-red color-option"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-pill btn-gray"
+                        onclick="location.href='@Url.Action("Index", "Home")'">
+                    Cancel
+                </button>
+                <button type="submit" class="btn-pill btn-green">
+                    Add
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+﻿@model PresentationLayer.Models.DashboardViewModel
+@using BusinessLayer
+
+@{
+    ViewData["Title"] = "Tasks";
+    var today = DateTime.Today;
+
+    var categoryCounts = Model.Categories.ToDictionary(
+        c => c.Id,
+        c => Model.Tasks.Count(t => t.CategoryId == c.Id && !t.IsCompleted)
+    );
+
+    int completedCount = Model.Tasks.Count(t => t.IsCompleted);
+    int notCompletedCount = Model.Tasks.Count(t =>
+        !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
+}
+
+@functions {
+    string ColorForCategory(string title)
+    {
+        return title.ToLower() switch
+        {
+            "work" => "card-blue",
+            "personal" => "card-purple",
+            "shopping" => "card-orange",
+            "health" => "card-pink",
+            "beauty" => "card-pink",
+            "school" => "card-green",
+            _ => "card-blue"
+        };
+    }
+}
+
+<div class="dashboard-container container-fluid pt-4">
+
+    <!-- Greeting -->
+    <div class="mb-3">
+        <h3>
+            @(Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted) == 0
+                        ? "Hello, you have completed all tasks for today!"
+                        : $"Hello, you have {Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
+        </h3>
+    </div>
+
+    <!-- Categories Title -->
+    <div class="mb-2">
+        <h5>Categories</h5>
+    </div>
+
+    <!-- Categories Row -->
+    <div class="category-row mb-4">
+        @foreach (var cat in Model.Categories)
+        {
+            var colorClass = ColorForCategory(cat.Title);
+            var count = categoryCounts[cat.Id];
+
+            <div class="category-card @colorClass" style="position:relative;">
+
+                <!-- Edit Category -->
+                <a asp-controller="Category" asp-action="Edit" asp-route-id="@cat.Id"
+                   style="position:absolute; right:35px; top:6px; font-size:18px;">✏️</a>
+
+                <!-- Delete Category -->
+                <a asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id"
+                   onclick="return confirm('Delete this category and ALL tasks in it?');"
+                   style="position:absolute; right:8px; top:6px; font-size:18px;">🗑️</a>
+
+                <a asp-action="Index" asp-route-categoryId="@cat.Id"
+                   style="text-decoration:none; color:inherit;">
+                    <div class="category-title">@cat.Title</div>
+                    <div class="category-count">@count tasks</div>
+                </a>
+            </div>
+        }
+
+        <!-- Completed / Not Completed Synthetic Categories -->
+        <div class="category-card card-green">
+            <div class="category-title">Completed</div>
+            <div class="category-count">@completedCount</div>
+        </div>
+
+        <div class="category-card card-red">
+            <div class="category-title">Not Completed</div>
+            <div class="category-count">@notCompletedCount</div>
+        </div>
+    </div>
+
+    <!-- Tasks Title -->
+    <div class="mb-3">
+        <h5>My tasks</h5>
+    </div>
+
+    @{
+        var tasks = Model.SelectedCategoryId.HasValue
+        ? Model.Tasks.Where(t => t.CategoryId == Model.SelectedCategoryId.Value).ToList()
+        : Model.Tasks.ToList();
+
+        tasks = tasks.OrderBy(t => t.DueDate ?? DateTime.MaxValue).ToList();
+    }
+
+    @if (!tasks.Any())
+    {
+        <div class="center-empty">
+            <p>No tasks yet.</p>
+            <p>Click + to add your first task.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var t in tasks)
+        {
+            string bg;
+
+            if (t.IsCompleted) bg = "#4CAF50";
+            else if (t.DueDate < today) bg = "#E53935";
+            else bg = Model.Categories.First(c => c.Id == t.CategoryId).Color;
+
+            <div class="task-card"
+                 style="background:@bg; color:white; border-radius:10px; padding:14px;
+                                margin-bottom:14px; position:relative; cursor:pointer;"
+                 onclick="window.location='@Url.Action("TaskDetails", new { id = t.Id })'">
+
+                <div class="task-title">@t.Title</div>
+                <div class="task-date">@t.DueDate?.ToString("MMM d, yyyy")</div>
+
+                <!-- Edit Task -->
+                <a asp-action="EditTask" asp-route-id="@t.Id"
+                   onclick="event.stopPropagation();"
+                   style="position:absolute; right:35px; top:6px; font-size:18px;">✏️</a>
+
+                <!-- Delete Task -->
+                <a asp-action="DeleteTask" asp-route-id="@t.Id"
+                   onclick="event.stopPropagation(); return confirm('Delete this task?');"
+                   style="position:absolute; right:8px; top:6px; font-size:18px;">🗑️</a>
+            </div>
+        }
+    }
+</div>
+
+<!-- Floating FAB Menu -->
+<div id="fabMenu" class="fab-menu">
+    <button onclick="location.href='@Url.Action("CreateTask")'">Create a task</button>
+    <button onclick="location.href='@Url.Action("CreateCategory")'">Create a category</button>
+</div>
+
+<button class="fab-btn" onclick="toggleFabMenu()">+</button>
+
+
+<nav class="bottom-nav">
+    <a asp-controller="Home" asp-action="Index"
+       class="@(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+        Tasks
+    </a>
+
+    <a asp-controller="Home" asp-action="Calendar"
+       class="@(ViewContext.RouteData.Values["Action"]?.ToString() == "Calendar" ? "active" : "")">
+        Calendar
+    </a>
+
+    <a asp-controller="Home" asp-action="Profile"
+       class="@(ViewContext.RouteData.Values["Action"]?.ToString() == "Profile" ? "active" : "")">
+        Me
+    </a>
+</nav>
+
+@section Scripts {
+    <script>
+        function toggleFabMenu() {
+            document.getElementById("fabMenu").classList.toggle("show");
+        }
+        document.addEventListener("click", function (e) {
+            const menu = document.getElementById("fabMenu");
+            const fab = document.querySelector(".fab-btn");
+
+            if (!menu.contains(e.target) && !fab.contains(e.target)) {
+                menu.classList.remove("show");
+            }
+        });
+    </script>
+}

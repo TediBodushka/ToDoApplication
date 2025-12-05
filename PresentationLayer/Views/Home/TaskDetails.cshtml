@@ -1,0 +1,53 @@
+﻿@model PresentationLayer.Models.TaskListViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<div class="modal-page">
+    <div class="modal-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2>Task details</h2>
+
+            <form asp-action="DeleteTask" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="btn btn-link text-danger" title="Delete">
+                    <i class="bi bi-trash"></i> 
+                </button>
+            </form>
+        </div>
+
+        <form asp-action="UpdateTask" method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select asp-for="CategoryId" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))">
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Due date</label>
+                <input asp-for="DueDate" type="date" class="form-control" />
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-pill btn-gray"
+                        onclick="location.href='@Url.Action("Index", "Home")'">
+                    Cancel
+                </button>
+                <button type="submit" class="btn-pill btn-green">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

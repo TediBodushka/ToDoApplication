@@ -1,0 +1,17 @@
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\bin\Debug\net9.0\DataLayer.deps.json
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\bin\Debug\net9.0\DataLayer.runtimeconfig.json
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\bin\Debug\net9.0\DataLayer.dll
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\bin\Debug\net9.0\DataLayer.pdb
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\bin\Debug\net9.0\BusinessLayer.dll
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\bin\Debug\net9.0\BusinessLayer.pdb
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.csproj.AssemblyReference.cache
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.AssemblyInfoInputs.cache
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.AssemblyInfo.cs
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.csproj.Up2Date
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.dll
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\refint\DataLayer.dll
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.pdb
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\DataLayer.genruntimeconfig.cache
+C:\Users\Tedi\source\repos\ToDoList\DataLayer\obj\Debug\net9.0\ref\DataLayer.dll
