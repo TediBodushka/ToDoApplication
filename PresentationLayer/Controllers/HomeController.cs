@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using DataLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PresentationLayer.Models;
 using System;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace PresentationLayer.Controllers
     public class HomeController : Controller
     {
         private readonly ToDoListDbContext _context;
+       
 
         public HomeController(ToDoListDbContext context)
         {
@@ -18,21 +20,16 @@ namespace PresentationLayer.Controllers
 
         public IActionResult Index(int? categoryId)
         {
-            var categories = _context.Categories.ToList();
-            var tasks = _context.Tasks.ToList();
-
             var vm = new DashboardViewModel
             {
-                Categories = categories,
-                Tasks = tasks,
+                Categories = _context.Categories.ToList(),
+                Tasks = _context.Tasks.ToList(),
                 SelectedCategoryId = categoryId
             };
 
             return View(vm);
         }
 
-
-        // ====== FIXED CALENDAR ======
         public IActionResult Calendar(DateTime? date)
         {
             var current = date ?? DateTime.Today;
@@ -40,20 +37,26 @@ namespace PresentationLayer.Controllers
             var vm = new CalendarViewModel
             {
                 CurrentMonth = new DateTime(current.Year, current.Month, 1),
-                Tasks = _taskContext.Tasks.ToList()
+                Tasks = _context.Tasks.ToList()
             };
 
             return View(vm);
         }
 
-        // ====== FIXED PROFILE ======
         public IActionResult Profile()
         {
-            return View("Profile");
+            var vm = new ProfileViewModel
+            {
+                TotalTasks = _context.Tasks.Count(),
+                FinishedTasks = _context.Tasks.Count(t => t.IsCompleted),
+                NotFinishedTasks = _context.Tasks.Count(t => !t.IsCompleted),
+                Categories = _context.Categories.Count()
+            };
+
+            return View(vm);
         }
 
-
-        // TASK CREATION
+    
         public IActionResult CreateTask()
         {
             ViewBag.Categories = _context.Categories.ToList();
@@ -79,7 +82,39 @@ namespace PresentationLayer.Controllers
 
             _context.Tasks.Add(task);
             _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
+        public IActionResult CreateCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCategory(string title, string color)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                return View();
+
+            var category = new Category
+            {
+                Title = title,
+                Color = string.IsNullOrEmpty(color) ? "#1E90FF" : color
+            };
+
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteTask(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+            if (task == null) return NotFound();
+
+            _context.Tasks.Remove(task);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 

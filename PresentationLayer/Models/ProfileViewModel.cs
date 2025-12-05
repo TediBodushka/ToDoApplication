@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace PresentationLayer.Models
+﻿namespace PresentationLayer.Models
 {
     public class ProfileViewModel
     {
-        public string Name { get; set; } = string.Empty;
-
-        public int CompletedCount { get; set; }
-
-        public int NotCompletedCount { get; set; }
-
-        public List<TaskListViewModel> Tasks { get; set; } = new();
+        public int TotalTasks { get; set; }
+        public int FinishedTasks { get; set; }
+        public int NotFinishedTasks { get; set; }
+        public int Categories { get; set; }
     }
 }

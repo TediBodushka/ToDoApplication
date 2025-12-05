@@ -1,37 +1,26 @@
 ﻿@model PresentationLayer.Models.CalendarViewModel
-
 @{
     ViewData["Title"] = "Calendar";
+
     var month = Model.CurrentMonth;
     var daysInMonth = DateTime.DaysInMonth(month.Year, month.Month);
-
     var firstDay = new DateTime(month.Year, month.Month, 1);
-    var firstWeekday = (int)firstDay.DayOfWeek; 
+    var firstWeekday = (int)firstDay.DayOfWeek;
 }
 
 <h2 class="mb-4">Calendar</h2>
 
 <div class="d-flex justify-content-between mb-3">
-    <a class="btn btn-light"
-       asp-action="Calendar"
-       asp-route-date="@month.AddMonths(-1)">
-        ← @month.AddMonths(-1).ToString("MMMM yyyy")
-    </a>
-
+    <a asp-action="Calendar" asp-route-date="@month.AddMonths(-1)" class="btn btn-primary">◀ Prev</a>
     <h3>@month.ToString("MMMM yyyy")</h3>
-
-    <a class="btn btn-light"
-       asp-action="Calendar"
-       asp-route-date="@month.AddMonths(1)">
-        @month.AddMonths(1).ToString("MMMM yyyy") →
-    </a>
+    <a asp-action="Calendar" asp-route-date="@month.AddMonths(1)" class="btn btn-primary">Next ▶</a>
 </div>
 
-<table class="table text-center calendar-table">
+<table class="table calendar-table text-center">
     <thead>
         <tr>
-            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>
-            <th>Thu</th><th>Fri</th><th>Sat</th>
+            <th>Sun</th><th>Mon</th><th>Tue</th>
+            <th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
         </tr>
     </thead>
     <tbody>
@@ -43,90 +32,26 @@
 
             @for (int day = 1; day <= daysInMonth; day++)
             {
-                var currentDate = new DateTime(month.Year, month.Month, day);
-                bool isSelected = Model.SelectedDate.HasValue &&
-                                  Model.SelectedDate.Value.Date == currentDate.Date;
-
-                <td class="calendar-day @(isSelected ? "selected-day" : "")">
-                    <a asp-action="Calendar"
-                       asp-route-date="@currentDate"
-                       style="text-decoration:none;color:inherit;">
-                        @day
-                    </a>
-                </td>
-
-                if ((day + firstWeekday) % 7 == 0)
+                if ((firstWeekday + day - 1) % 7 == 0)
                 {
                     @:</tr><tr>
                 }
+
+                var tasksToday = Model.Tasks.Where(t =>
+                    t.DueDate.HasValue &&
+                    t.DueDate.Value.Date == new DateTime(month.Year, month.Month, day)
+                ).ToList();
+
+                <td>
+                    <strong>@day</strong>
+                    @if (tasksToday.Any())
+                    {
+                        <div class="badge bg-success mt-2">@tasksToday.Count task(s)</div>
+                    }
+                </td>
             }
         </tr>
     </tbody>
 </table>
 
-<hr />
-
-@if (Model.SelectedDate.HasValue)
-{
-    <h4>Tasks for @Model.SelectedDate.Value.ToString("MMMM dd, yyyy")</h4>
-}
-else
-{
-    <h4>All tasks this month</h4>
-}
-
-@if (!Model.Tasks.Any())
-{
-    <p class="text-muted">No tasks for this date.</p>
-}
-else
-{
-    <div class="mt-3">
-        @foreach (var task in Model.Tasks.OrderBy(t => t.DueDate))
-        {
-            var bg = task.IsCompleted ? "background:#34d399;" : "background:#60a5fa;";
-            var color = "color:white;";
-
-            <div class="p-3 mb-3 rounded shadow-sm" style="@bg @color">
-                <div class="d-flex justify-content-between">
-                    <strong>@task.Title</strong>
-
-                    @if (!task.IsCompleted)
-                    {
-                        <form asp-action="CompleteTask" asp-route-id="@task.Id" method="post">
-                            <button class="btn btn-light btn-sm">✔ Done</button>
-                        </form>
-                    }
-                </div>
-
-                @if (!string.IsNullOrWhiteSpace(task.Description))
-                {
-                    <p class="mt-2">@task.Description</p>
-                }
-
-                <small>@task.DueDate?.ToString("MMM dd")</small>
-            </div>
-        }
-    </div>
-}
-
-<style>
-.calendar-table td {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    vertical-align: middle;
-}
-
-.calendar-day:hover {
-    background: #e0e7ff;
-    border-radius: 6px;
-    transition: 0.2s;
-}
-
-.selected-day {
-    background: #3b82f6 !important;
-    color: white;
-    border-radius: 6px;
-}
-</style>
+<a asp-action="Index" class="btn btn-secondary mt-3">⬅ Back to tasks</a>
