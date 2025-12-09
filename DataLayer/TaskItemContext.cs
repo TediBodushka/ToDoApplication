@@ -88,5 +88,10 @@ namespace DataLayer
             dbContext.Tasks.Remove(taskItem);
             dbContext.SaveChanges();
         }
+
+        public dynamic ReadAllCategories()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
