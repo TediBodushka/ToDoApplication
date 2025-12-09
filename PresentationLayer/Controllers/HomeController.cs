@@ -3,8 +3,6 @@ using DataLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PresentationLayer.Models;
-using System;
-using System.Linq;
 
 namespace PresentationLayer.Controllers
 {
@@ -17,17 +15,41 @@ namespace PresentationLayer.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int? categoryId)
+        public IActionResult Index(int? categoryId = null)
         {
-            var vm = new DashboardViewModel
+            var tasks = _context.Tasks
+                .Include(t => t.Category)
+                .ToList<TaskItem>();
+
+            var active = tasks.Where(t => !t.IsCompleted).ToList();
+            var completed = tasks.Where(t => t.IsCompleted).ToList();
+
+            if (categoryId.HasValue)
+                active = active.Where(t => t.CategoryId == categoryId.Value).ToList();
+
+            var model = new DashboardViewModel
             {
+                Tasks = tasks,
+                ActiveTasks = active,
+                CompletedTasks = completed,
                 Categories = _context.Categories.ToList(),
-                Tasks = _context.Tasks.Where(t => !t.IsCompleted).ToList(),
-                CompletedTasks = _context.Tasks.Where(t => t.IsCompleted).ToList(),
                 SelectedCategoryId = categoryId
             };
 
-            return View(vm);
+            return View(model);
+        }
+
+        public IActionResult CompleteTask(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+
+            if (task == null)
+                return NotFound();
+
+            task.IsCompleted = true;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
 
@@ -133,19 +155,7 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult CompleteTask(int id)
-        {
-            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
-
-            if (task == null)
-                return NotFound();
-
-            task.IsCompleted = true;
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
+        
 
         public IActionResult CreateCategory()
         {

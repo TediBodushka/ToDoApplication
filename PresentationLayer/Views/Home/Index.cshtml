@@ -10,7 +10,7 @@
         c => Model.Tasks.Count(t => t.CategoryId == c.Id && !t.IsCompleted)
     );
 
-    int completedCount = Model.CompletedTasks.Count;
+    int completedCount = Model.Tasks.Count(t => t.IsCompleted);
     int notCompletedCount = Model.Tasks.Count(t =>
         !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
 }
@@ -36,8 +36,8 @@
     <div class="mb-3">
         <h3>
             @(Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted) == 0
-                        ? "Hello, you have completed all tasks for today!"
-                        : $"Hello, you have {Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
+                ? "Hello, you have completed all tasks for today!"
+                : $"Hello, you have {Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
         </h3>
     </div>
 
@@ -67,7 +67,6 @@
             </div>
         }
 
-        <!-- Completed category now acts as toggler -->
         <div class="category-card card-green" onclick="toggleCompleted()" style="cursor:pointer;">
             <div class="category-title">Completed</div>
             <div class="category-count">@completedCount</div>
@@ -79,27 +78,22 @@
         </div>
     </div>
 
-    <!-- Collapsible Completed Tasks -->
-    <div id="completedList" style="display:none; margin-top:10px;">
+    <!-- Completed Collapse -->
+    <div id="completedList" style="display:none; margin-bottom:20px;">
         @foreach (var task in Model.CompletedTasks)
         {
             <div class="task-card"
-                 style="background:#4CAF50; color:white; border-radius:10px; padding:14px;
-                            margin-bottom:14px; position:relative;">
-                <div style="position:absolute; left:14px; top:18px;">
-                    <div class="task-check-circle completed"></div>
-                </div>
+                 style="background:#4CAF50; color:white; border-radius:10px; padding:14px; margin-bottom:14px; display:flex; align-items:center; gap:14px;">
+                
+                <!-- ❌ Махнато кръгче при Completed -->
 
-                <div style="margin-left:45px;">
+                <div>
                     <strong>@task.Title</strong>
-                    <div style="font-size:14px; opacity:0.9;">
-                        @task.DueDate?.ToString("MMM d, yyyy")
-                    </div>
+                    <div>@task.DueDate?.ToString("MMM d, yyyy")</div>
                 </div>
             </div>
         }
     </div>
-
 
     <div class="mb-3 mt-4">
         <h5>My tasks</h5>
@@ -126,40 +120,40 @@
         {
             string bg;
 
-            if (t.DueDate < today) bg = "#E53935";
+            if (t.IsCompleted) bg = "#4CAF50";
+            else if (t.DueDate < today) bg = "#E53935";
             else bg = Model.Categories.First(c => c.Id == t.CategoryId).Color;
 
             <div class="task-card"
-                 style="background:@bg; color:white; border-radius:10px; padding:14px;
-                                        margin-bottom:14px; position:relative;">
+                 style="background:@bg; color:white; border-radius:10px; padding:14px; margin-bottom:14px; position:relative;">
 
-                <a asp-action="CompleteTask" asp-route-id="@t.Id"
-                   style="position:absolute; left:14px; top:18px; text-decoration:none;">
-                    <div class="task-check-circle"></div>
-                </a>
+                <!-- ✔ Кръгчето само ако НЕ е completed -->
+                @if (!t.IsCompleted)
+                {
+                    <a asp-action="CompleteTask" asp-route-id="@t.Id"
+                       style="position:absolute; left:18px; top:50%; transform:translateY(-50%); text-decoration:none;">
+                        <div class="task-check-circle"></div>
+                    </a>
+                }
 
-                <div style="margin-left:45px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="margin-left:55px; display:flex; justify-content:space-between; align-items:center;">
                     <a href="@Url.Action("TaskDetails", new { id = t.Id })"
-                       style="text-decoration:none; color:inherit; font-size:18px; font-weight:600;">
+                       style="text-decoration:none; color:white; font-size:18px; font-weight:600;">
                         @t.Title
                     </a>
 
                     <div style="display:flex; gap:10px; font-size:21px;">
                         <a asp-action="EditTask" asp-route-id="@t.Id"
                            onclick="event.stopPropagation();"
-                           style="text-decoration:none; color:white;">
-                            ✏️
-                        </a>
+                           style="text-decoration:none; color:white;">✏️</a>
 
                         <a asp-action="DeleteTask" asp-route-id="@t.Id"
                            onclick="event.stopPropagation(); return confirm('Delete this task?');"
-                           style="text-decoration:none; color:white;">
-                            🗑️
-                        </a>
+                           style="text-decoration:none; color:white;">🗑️</a>
                     </div>
                 </div>
 
-                <div style="margin-left:45px; font-size:14px; opacity:0.9;">
+                <div style="margin-left:55px; font-size:14px; opacity:0.9;">
                     @t.DueDate?.ToString("MMM d, yyyy")
                 </div>
             </div>
@@ -167,40 +161,29 @@
     }
 </div>
 
-<style>
-    .task-check-circle {
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        border: 3px solid white;
-        transition: 0.25s;
-    }
+<!-- FAB MENU -->
+<div id="fabMenu" class="fab-menu">
+    <button onclick="location.href='@Url.Action("CreateTask")'">Create a task</button>
+    <button onclick="location.href='@Url.Action("CreateCategory")'">Create a category</button>
+</div>
 
-        .task-check-circle:hover {
-            background: rgba(255,255,255,0.25);
-            cursor: pointer;
-        }
-
-        .task-check-circle.completed {
-            background: white;
-            border-color: white;
-            position: relative;
-        }
-
-            .task-check-circle.completed:after {
-                content: '✔';
-                font-size: 14px;
-                font-weight: 800;
-                color: #4CAF50;
-                position: absolute;
-                top: -1px;
-                left: 4px;
-            }
-</style>
+<button class="fab-btn" onclick="toggleFabMenu()">+</button>
 
 <script>
-    function toggleCompleted() {
-        const list = document.getElementById("completedList");
-        list.style.display = list.style.display === "none" ? "block" : "none";
+function toggleFabMenu() {
+    document.getElementById("fabMenu").classList.toggle("show");
+}
+document.addEventListener("click", function (e) {
+    const menu = document.getElementById("fabMenu");
+    const fab = document.querySelector(".fab-btn");
+
+    if (!menu.contains(e.target) && !fab.contains(e.target)) {
+        menu.classList.remove("show");
     }
+});
+
+function toggleCompleted() {
+    const list = document.getElementById("completedList");
+    list.style.display = list.style.display === "none" ? "block" : "none";
+}
 </script>

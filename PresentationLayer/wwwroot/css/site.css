@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -271,3 +271,106 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
     margin-bottom: 18px;
 }
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+.fab-main {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #0078ff;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.2s;
+}
+
+    .fab-main:hover {
+        transform: scale(1.12);
+    }
+
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+    align-items: flex-end;
+}
+
+.fab-sub {
+    padding: 10px 15px;
+    border-radius: 18px;
+    background: white;
+    border: 2px solid #0078ff;
+    color: #0078ff;
+    font-weight: 600;
+    cursor: pointer;
+    width: 160px;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transition: 0.2s;
+}
+
+    .fab-sub:hover {
+        background: #0078ff;
+        color: white;
+    }
+
+.card-blue {
+    background: #4A90E2;
+    color: white;
+}
+
+.card-purple {
+    background: #A259FF;
+    color: white;
+}
+
+.card-orange {
+    background: #FF8A34;
+    color: white;
+}
+
+.card-pink {
+    background: #FF61A7;
+    color: white;
+}
+
+.card-green {
+    background: #00C875;
+    color: white;
+}
+
+.card-red {
+    background: #FF4D4D;
+    color: white;
+}
+/* За Completed в списък горе */
+.completed-task {
+    opacity: 0.65;
+    text-decoration: line-through;
+}
+
+.task-check-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 3px solid white;
+    background: rgba(255,255,255,0.25); /* 👈 добавено, не променя дизайна, само го прави видимо */
+    transition: 0.25s;
+}
+
+    .task-check-circle:hover {
+        background: rgba(255,255,255,0.45);
+    }
