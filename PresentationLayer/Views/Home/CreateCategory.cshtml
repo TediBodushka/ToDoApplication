@@ -9,7 +9,6 @@
         border: 2px solid transparent;
         cursor: pointer;
         border-radius: 4px;
-        box-shadow: none;
     }
 
     input[type="radio"] {
@@ -34,41 +33,19 @@
             <div class="mb-3">
                 <label class="form-label">Color</label>
                 <div class="d-flex flex-wrap gap-2">
-                    <label>
-                        <input type="radio" name="color" value="blue">
-                        <div class="category-card card-blue color-option"></div>
-                    </label>
-                    <label>
-                        <input type="radio" name="color" value="purple">
-                        <div class="category-card card-purple color-option"></div>
-                    </label>
-                    <label>
-                        <input type="radio" name="color" value="orange">
-                        <div class="category-card card-orange color-option"></div>
-                    </label>
-                    <label>
-                        <input type="radio" name="color" value="pink">
-                        <div class="category-card card-pink color-option"></div>
-                    </label>
-                    <label>
-                        <input type="radio" name="color" value="green">
-                        <div class="category-card card-green color-option"></div>
-                    </label>
-                    <label>
-                        <input type="radio" name="color" value="red">
-                        <div class="category-card card-red color-option"></div>
-                    </label>
+                    @foreach (var color in new[] { "blue", "purple", "orange", "pink", "green", "red" })
+                    {
+                        <label>
+                            <input type="radio" name="color" value="@color">
+                            <div class="category-card card-@color color-option"></div>
+                        </label>
+                    }
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-pill btn-gray"
-                        onclick="location.href='@Url.Action("Index", "Home")'">
-                    Cancel
-                </button>
-                <button type="submit" class="btn-pill btn-green">
-                    Add
-                </button>
+                <a asp-action="Index" class="btn-pill btn-gray">Cancel</a>
+                <button type="submit" class="btn-pill btn-green">Add</button>
             </div>
         </form>
     </div>

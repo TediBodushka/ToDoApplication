@@ -14,6 +14,28 @@
     int notCompletedCount = Model.Tasks.Count(t =>
         !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
 }
+<h3 class="mt-4 mb-3">My tasks</h3>
+
+<div class="task-list">
+    @foreach (var task in Model.Tasks)
+    {
+        var color = task.Category?.Color ?? "#6C63FF"; // default color
+        var dateText = task.DueDate.HasValue ? task.DueDate.Value.ToString("MMM d, yyyy") : "";
+        var isToday = task.DueDate?.Date == DateTime.Today;
+        var isTomorrow = task.DueDate?.Date == DateTime.Today.AddDays(1);
+
+        if (isToday) dateText = "Today";
+        if (isTomorrow) dateText = "Tomorrow";
+
+        <a asp-action="TaskDetails" asp-route-id="@task.Id" class="task-card" style="background-color:@color;">
+            <div class="task-checkbox"></div>
+            <div class="task-info">
+                <span class="task-title">@task.Title</span>
+                <span class="task-date">@dateText</span>
+            </div>
+        </a>
+    }
+</div>
 
 @functions {
     string ColorForCategory(string title)
@@ -107,7 +129,7 @@
     }
     else
     {
-        foreach (var t in tasks)
+        @foreach (var t in tasks)
         {
             string bg;
 
@@ -117,25 +139,55 @@
 
             <div class="task-card"
                  style="background:@bg; color:white; border-radius:10px; padding:14px;
-                                margin-bottom:14px; position:relative; cursor:pointer;"
-                 onclick="window.location='@Url.Action("TaskDetails", new { id = t.Id })'">
+                                margin-bottom:14px; position:relative;">
 
-                <div class="task-title">@t.Title</div>
-                <div class="task-date">@t.DueDate?.ToString("MMM d, yyyy")</div>
+                <!-- Title + Icons Row -->
+                <div style="display:flex; justify-content:space-between; align-items:center;">
 
-                <!-- Edit Task -->
-                <a asp-action="EditTask" asp-route-id="@t.Id"
-                   onclick="event.stopPropagation();"
-                   style="position:absolute; right:35px; top:6px; font-size:18px;">✏️</a>
+                    <!-- Title opens details -->
+                    <a href="@Url.Action("TaskDetails", new { id = t.Id })"
+                       style="text-decoration:none; color:inherit; font-size:18px; font-weight:600;">
+                        @t.Title
+                    </a>
 
-                <!-- Delete Task -->
-                <a asp-action="DeleteTask" asp-route-id="@t.Id"
-                   onclick="event.stopPropagation(); return confirm('Delete this task?');"
-                   style="position:absolute; right:8px; top:6px; font-size:18px;">🗑️</a>
+                    <!-- Icons -->
+                    <div style="display:flex; gap:10px; font-size:21px;">
+
+                        <!-- Edit -->
+                        <a asp-action="EditTask" asp-route-id="@t.Id"
+                           onclick="event.stopPropagation();"
+                           style="text-decoration:none; color:white;">
+                            ✏️
+                        </a>
+
+                        <!-- Delete -->
+                        <a asp-action="DeleteTask" asp-route-id="@t.Id"
+                           onclick="event.stopPropagation(); return confirm('Delete this task?');"
+                           style="text-decoration:none; color:white;">
+                            🗑️
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Date -->
+                <div style="font-size:14px; opacity:0.9;">
+                    @t.DueDate?.ToString("MMM d, yyyy")
+                </div>
             </div>
         }
+
     }
 </div>
+<style>
+    .task-card a {
+        color: white !important;
+    }
+
+        .task-card a:hover {
+            opacity: 0.7;
+        }
+</style>
+
 
 <!-- Floating FAB Menu -->
 <div id="fabMenu" class="fab-menu">

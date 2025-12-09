@@ -1,47 +1,35 @@
 ﻿@model PresentationLayer.Models.TaskListViewModel
 @using Microsoft.AspNetCore.Mvc.Rendering
 
-<div class="modal-page d-flex justify-content-center align-items-center" style="min-height: 88vh;">
-    <div class="modal-card p-4" style="border-radius: 20px; width: 450px;">
-        <h3 class="mb-4 text-center">New task</h3>
-
-        <form asp-action="CreateTask" method="post">
-
-            <div class="mb-3">
-                <label class="form-label">Title</label>
-                <input asp-for="Title" class="form-control" placeholder="Enter task title" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select asp-for="CategoryId"
-                        asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))"
-                        class="form-select">
-                    <option value="">Select a category</option>
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            </div>
-
-            <div class="mb-4">
-                <label class="form-label">Date</label>
-                <input asp-for="DueDate" type="date" class="form-control" />
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <a asp-action="Index" class="btn btn-outline-secondary" style="width: 45%;">Cancel</a>
-                <button type="submit" class="btn btn-primary" style="width: 45%;">Add</button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+@{
+    ViewData["Title"] = "Create Task";
 }
+
+<h2>Create Task</h2>
+
+<form asp-action="CreateTask" method="post">
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Description (optional)</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Due Date</label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+        <select asp-for="CategoryId"
+                class="form-control"
+                asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))">
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+</form>

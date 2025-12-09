@@ -67,3 +67,4 @@ C:\Users\Tedi\source\repos\ToDoList\CUI\obj\Debug\net9.0\CUI.pdb
 C:\Users\Tedi\source\repos\ToDoList\CUI\obj\Debug\net9.0\CUI.genruntimeconfig.cache
 C:\Users\Tedi\source\repos\ToDoList\CUI\obj\Debug\net9.0\ref\CUI.dll
 C:\Users\Tedi\source\repos\ToDoList\CUI\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Tedi\source\repos\ToDoList\CUI\obj\Debug\net9.0\CUI.sourcelink.json

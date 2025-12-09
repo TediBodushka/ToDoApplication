@@ -1,13 +1,21 @@
 ﻿@{
-    ViewData["Title"] = "Create Category";
+    ViewData["Title"] = "New Category";
 }
 
 <h2>Create Category</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label>Title</label>
+<form method="post">
+    <div class="mb-3">
+        <label>Name</label>
         <input name="title" class="form-control" />
+        @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Save</button>
+
+    <div class="mb-3">
+        <label>Color</label>
+        <input name="color" class="form-control" type="color" value="#1E90FF" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Add</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
 </form>

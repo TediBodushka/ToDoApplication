@@ -1,0 +1,17 @@
+﻿@model BusinessLayer.Category
+
+<h2>Delete Category</h2>
+
+<p>Delete category and all tasks in it?</p>
+
+<div class="card p-3 mb-3">
+    <strong>@Model.Title</strong>
+    <span style="margin-left:10px;">
+        <div style="background:@Model.Color; width:30px; height:20px; display:inline-block;"></div>
+    </span>
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+</form>
