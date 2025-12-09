@@ -8,5 +8,6 @@ namespace PresentationLayer.Models
     {
         public DateTime CurrentMonth { get; set; }
         public List<TaskItem> Tasks { get; set; }
+        public DateTime SelectedDate { get; set; }
     }
 }

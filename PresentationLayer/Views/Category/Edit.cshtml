@@ -2,20 +2,15 @@
 
 <h2>Edit Category</h2>
 
-<form method="post">
-    <input type="hidden" value="@Model.Id" />
+<form asp-action="EditCategory" method="post">
+    <input type="hidden" asp-for="Id" />
 
-    <div class="mb-3">
+    <div class="form-group">
         <label>Name</label>
-        <input name="title" class="form-control" value="@Model.Title" />
-        @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
+        <input asp-for="Title" class="form-control" />
     </div>
 
-    <div class="mb-3">
-        <label>Color</label>
-        <input name="color" class="form-control" type="color" value="@Model.Color" />
-    </div>
-
+    <br />
     <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

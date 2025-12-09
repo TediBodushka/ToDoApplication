@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using DataLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PresentationLayer.Models;
 using System;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace PresentationLayer.Controllers
             _context = context;
         }
 
-        // ---------------- DASHBOARD ----------------
         public IActionResult Index(int? categoryId)
         {
             var vm = new DashboardViewModel
@@ -29,8 +29,34 @@ namespace PresentationLayer.Controllers
             return View(vm);
         }
 
+        public IActionResult Profile()
+        {
+            var vm = new ProfileViewModel
+            {
+            };
 
-        // ---------------- TASK CRUD ----------------
+            return View(vm);
+        }
+        public IActionResult Calendar(DateTime? date)
+        {
+            DateTime selected = date?.Date ?? DateTime.Today;
+            DateTime firstDayOfMonth = new DateTime(selected.Year, selected.Month, 1);
+
+            var vm = new CalendarViewModel
+            {
+                CurrentMonth = firstDayOfMonth,
+                SelectedDate = selected,
+                Tasks = _context.Tasks
+                    .Include(t => t.Category)
+                    .Where(t => t.DueDate.HasValue &&
+                        t.DueDate.Value.Month == selected.Month &&
+                        t.DueDate.Value.Year == selected.Year)
+                    .ToList()
+            };
+
+            return View(vm);
+        }
+
 
         public IActionResult CreateTask()
         {
@@ -38,13 +64,14 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
-        [HttpPost]
+
+
         [HttpPost]
         public IActionResult CreateTask(TaskListViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                // DEBUG
+
                 Console.WriteLine("ModelState Errors: " + string.Join(", ", ModelState.Values
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)));
@@ -105,8 +132,6 @@ namespace PresentationLayer.Controllers
         }
 
 
-        // ---------------- CATEGORY CRUD ----------------
-
         public IActionResult CreateCategory()
         {
             return View();
@@ -138,13 +163,13 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditCategory(int id, string title, string color)
+        public IActionResult EditCategory(int id, string title)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
             if (category == null) return NotFound();
 
             category.Title = title;
-            category.Color = color;
+           
 
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -163,7 +188,6 @@ namespace PresentationLayer.Controllers
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
             if (category == null) return NotFound();
 
-            // remove tasks in category
             var tasks = _context.Tasks.Where(t => t.CategoryId == id).ToList();
             _context.Tasks.RemoveRange(tasks);
 
@@ -172,8 +196,6 @@ namespace PresentationLayer.Controllers
             return RedirectToAction("Index");
         }
 
-
-        // ---------------- DETAILS ----------------
 
         public IActionResult TaskDetails(int id)
         {

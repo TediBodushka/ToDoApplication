@@ -39,5 +39,9 @@ namespace DataLayer
 
         }
 
+        public object Read(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

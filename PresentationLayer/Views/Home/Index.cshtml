@@ -14,28 +14,7 @@
     int notCompletedCount = Model.Tasks.Count(t =>
         !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
 }
-<h3 class="mt-4 mb-3">My tasks</h3>
 
-<div class="task-list">
-    @foreach (var task in Model.Tasks)
-    {
-        var color = task.Category?.Color ?? "#6C63FF"; // default color
-        var dateText = task.DueDate.HasValue ? task.DueDate.Value.ToString("MMM d, yyyy") : "";
-        var isToday = task.DueDate?.Date == DateTime.Today;
-        var isTomorrow = task.DueDate?.Date == DateTime.Today.AddDays(1);
-
-        if (isToday) dateText = "Today";
-        if (isTomorrow) dateText = "Tomorrow";
-
-        <a asp-action="TaskDetails" asp-route-id="@task.Id" class="task-card" style="background-color:@color;">
-            <div class="task-checkbox"></div>
-            <div class="task-info">
-                <span class="task-title">@task.Title</span>
-                <span class="task-date">@dateText</span>
-            </div>
-        </a>
-    }
-</div>
 
 @functions {
     string ColorForCategory(string title)
@@ -229,4 +208,23 @@
             }
         });
     </script>
+    
+    <script>
+        $("#addTaskForm").submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "/Home/CreateTask",
+                method: "POST",
+                data: $(this).serialize(),
+                success: function (html) {
+                    $("#task-list").append(html);
+                    $("#addTaskModal").modal("hide");
+                    $("#addTaskForm")[0].reset();
+                }
+            });
+        });
+    </script>
+
+
 }

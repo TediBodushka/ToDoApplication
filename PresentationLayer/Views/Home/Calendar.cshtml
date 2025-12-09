@@ -8,50 +8,81 @@
     var firstWeekday = (int)firstDay.DayOfWeek;
 }
 
-<h2 class="mb-4">Calendar</h2>
+<div class="dashboard-container p-3">
+    <h2 class="mb-4">Calendar</h2>
 
-<div class="d-flex justify-content-between mb-3">
-    <a asp-action="Calendar" asp-route-date="@month.AddMonths(-1)" class="btn btn-primary">◀ Prev</a>
-    <h3>@month.ToString("MMMM yyyy")</h3>
-    <a asp-action="Calendar" asp-route-date="@month.AddMonths(1)" class="btn btn-primary">Next ▶</a>
-</div>
+    
 
-<table class="table calendar-table text-center">
-    <thead>
-        <tr>
-            <th>Sun</th><th>Mon</th><th>Tue</th>
-            <th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            @for (int i = 0; i < firstWeekday; i++)
-            {
-                <td></td>
-            }
-
-            @for (int day = 1; day <= daysInMonth; day++)
-            {
-                if ((firstWeekday + day - 1) % 7 == 0)
+    <table class="table calendar-table text-center">
+        <thead>
+            <tr>
+                <th>Sun</th><th>Mon</th><th>Tue</th>
+                <th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @for (int i = 0; i < firstWeekday; i++)
                 {
-                    @:</tr><tr>
+                    <td></td>
                 }
 
-                var tasksToday = Model.Tasks.Where(t =>
-                    t.DueDate.HasValue &&
-                    t.DueDate.Value.Date == new DateTime(month.Year, month.Month, day)
-                ).ToList();
-
-                <td>
-                    <strong>@day</strong>
-                    @if (tasksToday.Any())
+                @for (int day = 1; day <= daysInMonth; day++)
+                {
+                    if ((firstWeekday + day - 1) % 7 == 0)
                     {
-                        <div class="badge bg-success mt-2">@tasksToday.Count task(s)</div>
+                        @:</tr><tr>
                     }
-                </td>
-            }
-        </tr>
-    </tbody>
-</table>
 
-<a asp-action="Index" class="btn btn-secondary mt-3">⬅ Back to tasks</a>
+                    var tasksToday = Model.Tasks.Where(t =>
+                        t.DueDate.HasValue &&
+                        t.DueDate.Value.Date == new DateTime(month.Year, month.Month, day)
+                    ).ToList();
+
+                    <td class="calendar-day-cell">
+                        <a asp-action="Calendar" asp-route-date="@(new DateTime(month.Year, month.Month, day))"
+                           class="day-number @(Model.SelectedDate.Date == new DateTime(month.Year, month.Month, day) ? "selected-day" : "")">
+                            @day
+                        </a>
+
+                        @if (tasksToday.Any())
+                        {
+                            <div class="mini-dot"></div>
+                        }
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 class="mt-4">Tasks on @Model.SelectedDate.ToString("MMM d")</h4>
+
+    @if (!Model.Tasks.Any(t => t.DueDate.HasValue && t.DueDate.Value.Date == Model.SelectedDate.Date))
+    {
+        <div class="center-empty mt-4">
+            No tasks on this day.
+        </div>
+    }
+    else
+    {
+        <div class="task-list">
+            @foreach (var task in Model.Tasks.Where(t => t.DueDate.HasValue && t.DueDate.Value.Date == Model.SelectedDate.Date))
+            {
+                var color = task.Category?.Color ?? "#3b82f6";
+                <a asp-action="TaskDetails" asp-route-id="@task.Id" class="task-card" style="background:@color;">
+                    <div class="task-checkbox"></div>
+                    <div class="task-info">
+                        <span class="task-title">@task.Title</span>
+                        <span class="task-date">@task.DueDate?.ToString("MMM d, yyyy")</span>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+
+    <div class="bottom-nav mt-5">
+        <a asp-action="Index">Tasks</a>
+        <a asp-action="Calendar" class="active">Calendar</a>
+        <a asp-action="Profile">Me</a>
+    </div>
+</div>
