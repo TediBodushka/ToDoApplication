@@ -1,18 +1,22 @@
-﻿@model PresentationLayer.Models.DashboardViewModel
+﻿@model DashboardViewModel
 @using BusinessLayer
+@using System.Linq
 
 @{
     ViewData["Title"] = "Tasks";
     var today = DateTime.Today;
 
-    var categoryCounts = Model.Categories.ToDictionary(
-        c => c.Id,
-        c => Model.Tasks.Count(t => t.CategoryId == c.Id && !t.IsCompleted)
-    );
+    var categoryCounts = Model.Categories
+        .Cast<Category>()
+        .ToDictionary(
+            c => c.Id,
+            c => Model.Tasks.Cast<TaskItem>().Count(t => t.CategoryId == c.Id && !t.IsCompleted)
+        );
 
-    int completedCount = Model.Tasks.Count(t => t.IsCompleted);
-    int notCompletedCount = Model.Tasks.Count(t =>
-        !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
+    int completedCount = Model.Tasks.Cast<TaskItem>().Count(t => t.IsCompleted);
+
+    int notCompletedCount = Model.Tasks.Cast<TaskItem>()
+        .Count(t => !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
 }
 
 @functions {
@@ -35,18 +39,17 @@
 
     <div class="mb-3">
         <h3>
-            @(Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted) == 0
+            @(
+                        Model.Tasks.Cast<TaskItem>().Count(t => t.DueDate?.Date == today && !t.IsCompleted) == 0
                         ? "Hello, you have completed all tasks for today!"
-                        : $"Hello, you have {Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
+                        : $"Hello, you have {Model.Tasks.Cast<TaskItem>().Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
         </h3>
     </div>
 
-    <div class="mb-2">
-        <h5>Categories</h5>
-    </div>
+    <div class="mb-2"><h5>Categories</h5></div>
 
     <div class="category-row mb-4">
-        @foreach (var cat in Model.Categories)
+        @foreach (var cat in Model.Categories.Cast<Category>())
         {
             var colorClass = ColorForCategory(cat.Title);
             var count = categoryCounts[cat.Id];
@@ -80,7 +83,7 @@
 
     <!-- Completed -->
     <div id="completedList" style="display:none; margin-bottom:20px;">
-        @foreach (var task in Model.CompletedTasks)
+        @foreach (var task in Model.CompletedTasks.Cast<TaskItem>())
         {
             <div class="task-card"
                  style="background:#4CAF50; color:white; border-radius:10px; padding:14px; margin-bottom:14px;">
@@ -90,9 +93,9 @@
         }
     </div>
 
-    <!-- Not Completed -->
+    <!-- Not Completed (Overdue Only) -->
     <div id="overdueList" style="display:none; margin-bottom:20px;">
-        @foreach (var task in Model.Tasks.Where(t => !t.IsCompleted && t.DueDate < today))
+        @foreach (var task in Model.Tasks.Cast<TaskItem>().Where(t => !t.IsCompleted && t.DueDate < today))
         {
             <div class="task-card"
                  style="background:#E53935; color:white; border-radius:10px; padding:14px; margin-bottom:14px;">
@@ -102,14 +105,19 @@
         }
     </div>
 
-    <div class="mb-3 mt-4">
-        <h5>My tasks</h5>
-    </div>
+    <div class="mb-3 mt-4"><h5>My tasks</h5></div>
 
     @{
         var tasks = Model.SelectedCategoryId.HasValue
-        ? Model.Tasks.Where(t => t.CategoryId == Model.SelectedCategoryId.Value && !t.IsCompleted).ToList()
-        : Model.Tasks.Where(t => !t.IsCompleted).ToList();
+        ? Model.Tasks.Cast<TaskItem>().Where(t =>
+        t.CategoryId == Model.SelectedCategoryId.Value &&
+        !t.IsCompleted &&
+        (t.DueDate == null || t.DueDate >= today)
+        ).ToList()
+        : Model.Tasks.Cast<TaskItem>().Where(t =>
+        !t.IsCompleted &&
+        (t.DueDate == null || t.DueDate >= today)
+        ).ToList();
 
         tasks = tasks.OrderBy(t => t.DueDate ?? DateTime.MaxValue).ToList();
     }
@@ -119,8 +127,7 @@
         string bg;
 
         if (t.IsCompleted) bg = "#4CAF50";
-        else if (t.DueDate < today) bg = "#E53935";
-        else bg = Model.Categories.First(c => c.Id == t.CategoryId).Color;
+        else bg = Model.Categories.Cast<Category>().First(c => c.Id == t.CategoryId).Color;
 
         <div class="task-card"
              style="background:@bg; color:white; border-radius:10px; padding:14px; margin-bottom:14px; position:relative;">
@@ -144,10 +151,8 @@
     }
 </div>
 
-<!-- + FAB BUTTON -->
 <button class="fab-btn" onclick="toggleFabMenu()">+</button>
 
-<!-- FAB MENU (само добавено, НЕ сменено) -->
 <div id="fabMenu" style="
     display:none;
     position:fixed;
@@ -178,13 +183,13 @@
 
 <script>
     function toggleCompleted() {
-        document.getElementById("completedList").style.display =
-            document.getElementById("completedList").style.display === "none" ? "block" : "none";
+        const el = document.getElementById("completedList");
+        el.style.display = el.style.display === "none" ? "block" : "none";
     }
 
     function toggleOverdue() {
-        document.getElementById("overdueList").style.display =
-            document.getElementById("overdueList").style.display === "none" ? "block" : "none";
+        const el = document.getElementById("overdueList");
+        el.style.display = el.style.display === "none" ? "block" : "none";
     }
 
     function toggleFabMenu() {

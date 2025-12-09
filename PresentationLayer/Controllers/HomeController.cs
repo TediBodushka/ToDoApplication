@@ -173,7 +173,7 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
 
         public IActionResult CreateCategory()
         {

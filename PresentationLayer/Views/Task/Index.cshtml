@@ -1,44 +1,36 @@
-﻿@model IEnumerable<TaskItem>
-
+﻿@model BusinessLayer.TaskItem
 @{
-    ViewData["Title"] = "Tasks";
+    ViewData["Title"] = "Edit Task";
 }
 
-<h2>Tasks</h2>
+<h2>Edit Task</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create new task</a>
-</p>
+<form asp-action="EditTask" method="post">
+    <input type="hidden" asp-for="Id" />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>Title</th>
-            <th>Due Date</th>
-            <th>Completed</th>
-            <th>Category</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            var i = 1;
-        }
-        @foreach (var t in Model)
-        {
-            <tr>
-                <td>@i</td>
-                <td>@t.Title</td>
-                <td>@t.DueDate?.ToString("yyyy-MM-dd")</td>
-                <td>@t.IsCompleted</td>
-                <td>@t.Category?.Title</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@t.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@t.Id">Delete</a>
-                </td>
-            </tr>
-            i++;
-        }
-    </tbody>
-</table>
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label>Category</label>
+        <select asp-for="CategoryId" class="form-control"
+                asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))">
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label>Due Date</label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label>Description</label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+</form>
