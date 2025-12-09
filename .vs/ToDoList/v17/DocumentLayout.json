@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A45AFFD0-9A41-4457-AE52-24EE53A95943}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\businesslayer\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A45AFFD0-9A41-4457-AE52-24EE53A95943}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\models\\calendarviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\models\\calendarviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -15,16 +15,24 @@
       "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\controllers\\tasksmvccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A45AFFD0-9A41-4457-AE52-24EE53A95943}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\businesslayer\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A45AFFD0-9A41-4457-AE52-24EE53A95943}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24C3F6C3-148A-488D-982F-E1BB3398DE95}|DataLayer\\DataLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\datalayer\\taskitemcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24C3F6C3-148A-488D-982F-E1BB3398DE95}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\taskitemcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\wwwroot\\favicon.ico||{177559E0-D141-11D0-92DF-00A0C9138C45}",
       "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\wwwroot\\favicon.ico||{177559E0-D141-11D0-92DF-00A0C9138C45}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\models\\tasklistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\models\\tasklistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\views\\task\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -45,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\controllers\\calendarcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\controllers\\calendarcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\models\\calendarviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|solutionrelative:presentationlayer\\models\\calendarviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\views\\task\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -101,10 +105,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{24C3F6C3-148A-488D-982F-E1BB3398DE95}|DataLayer\\DataLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\datalayer\\todolistdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{24C3F6C3-148A-488D-982F-E1BB3398DE95}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\todolistdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{24C3F6C3-148A-488D-982F-E1BB3398DE95}|DataLayer\\DataLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\datalayer\\taskitemcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{24C3F6C3-148A-488D-982F-E1BB3398DE95}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\taskitemcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{019FC96F-9326-43DA-9906-C2B01906A0B0}|PresentationLayer\\PresentationLayer.csproj|c:\\users\\tedi\\source\\repos\\todolist\\presentationlayer\\views\\category\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -202,48 +202,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TasksMvcController.cs",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\TasksMvcController.cs",
-              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\TasksMvcController.cs",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\TasksMvcController.cs",
-              "RelativeToolTip": "PresentationLayer\\Controllers\\TasksMvcController.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAkwBsAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-09T12:14:54.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Index.cshtml",
-              "RelativeDocumentMoniker": "PresentationLayer\\Views\\Task\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Index.cshtml",
-              "RelativeToolTip": "PresentationLayer\\Views\\Task\\Index.cshtml",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-04T09:13:56.707Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Create.cshtml",
-              "RelativeDocumentMoniker": "PresentationLayer\\Views\\Task\\Create.cshtml",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Create.cshtml",
-              "RelativeToolTip": "PresentationLayer\\Views\\Task\\Create.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-04T09:14:42.987Z"
             },
             {
               "$type": "Document",
@@ -253,39 +216,25 @@
               "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\HomeController.cs",
               "RelativeToolTip": "PresentationLayer\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAqwFwAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T10:25:28.359Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T10:25:28.359Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Calendar.cshtml",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Calendar.cshtml",
-              "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\Calendar.cshtml",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Calendar.cshtml",
-              "RelativeToolTip": "PresentationLayer\\Views\\Home\\Calendar.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-04T11:26:56.195Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "TaskItem.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\BusinessLayer\\TaskItem.cs",
               "RelativeDocumentMoniker": "BusinessLayer\\TaskItem.cs",
               "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\BusinessLayer\\TaskItem.cs",
               "RelativeToolTip": "BusinessLayer\\TaskItem.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAACoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T08:39:00.435Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-02T08:39:00.435Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "favicon.ico -  [English (United Kingdom)] - Icon [32x32, 32 bit, BMP]",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\wwwroot\\favicon.ico",
               "RelativeDocumentMoniker": "PresentationLayer\\wwwroot\\favicon.ico",
@@ -294,18 +243,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001525|",
               "WhenOpened": "2025-12-09T11:36:31.911Z",
               "EditorCaption": " -  [English (United Kingdom)] - Icon [32x32, 32 bit, BMP]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CalendarController.cs",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\CalendarController.cs",
-              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\CalendarController.cs",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\CalendarController.cs",
-              "RelativeToolTip": "PresentationLayer\\Controllers\\CalendarController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T10:57:36.364Z"
             },
             {
               "$type": "Document",
@@ -322,6 +259,91 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "TaskItemContext.cs",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\DataLayer\\TaskItemContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\TaskItemContext.cs",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\DataLayer\\TaskItemContext.cs",
+              "RelativeToolTip": "DataLayer\\TaskItemContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:41:23.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TasksMvcController.cs",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\TasksMvcController.cs",
+              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\TasksMvcController.cs",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\TasksMvcController.cs",
+              "RelativeToolTip": "PresentationLayer\\Controllers\\TasksMvcController.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAkwBsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-09T12:14:54.308Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CalendarViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\CalendarViewModel.cs",
+              "RelativeDocumentMoniker": "PresentationLayer\\Models\\CalendarViewModel.cs",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\CalendarViewModel.cs",
+              "RelativeToolTip": "PresentationLayer\\Models\\CalendarViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-09T09:38:06.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Calendar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Calendar.cshtml",
+              "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\Calendar.cshtml",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Calendar.cshtml",
+              "RelativeToolTip": "PresentationLayer\\Views\\Home\\Calendar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-04T11:26:56.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Create.cshtml",
+              "RelativeDocumentMoniker": "PresentationLayer\\Views\\Task\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Create.cshtml",
+              "RelativeToolTip": "PresentationLayer\\Views\\Task\\Create.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-04T09:14:42.987Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Index.cshtml",
+              "RelativeDocumentMoniker": "PresentationLayer\\Views\\Task\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Index.cshtml",
+              "RelativeToolTip": "PresentationLayer\\Views\\Task\\Index.cshtml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-04T09:13:56.707Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CalendarController.cs",
+              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\CalendarController.cs",
+              "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\CalendarController.cs",
+              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\CalendarController.cs",
+              "RelativeToolTip": "PresentationLayer\\Controllers\\CalendarController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T10:57:36.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "TaskListViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\TaskListViewModel.cs",
               "RelativeDocumentMoniker": "PresentationLayer\\Models\\TaskListViewModel.cs",
@@ -333,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\BusinessLayer\\Category.cs",
               "RelativeDocumentMoniker": "BusinessLayer\\Category.cs",
@@ -345,7 +367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "CreateTask.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\CreateTask.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\CreateTask.cshtml",
@@ -357,7 +379,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "Profile.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Profile.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\Profile.cshtml",
@@ -369,19 +391,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CalendarViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\CalendarViewModel.cs",
-              "RelativeDocumentMoniker": "PresentationLayer\\Models\\CalendarViewModel.cs",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\CalendarViewModel.cs",
-              "RelativeToolTip": "PresentationLayer\\Models\\CalendarViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-09T09:38:06.424Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Privacy.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Privacy.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\Privacy.cshtml",
@@ -393,7 +403,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "CreateCategory.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\CreateCategory.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\CreateCategory.cshtml",
@@ -405,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Category\\Create.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Category\\Create.cshtml",
@@ -417,7 +427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Home\\Index.cshtml",
@@ -429,7 +439,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "ProfileViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\ProfileViewModel.cs",
               "RelativeDocumentMoniker": "PresentationLayer\\Models\\ProfileViewModel.cs",
@@ -441,7 +451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Category\\Edit.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Category\\Edit.cshtml",
@@ -453,7 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "PresentationLayer\\Controllers\\CategoryController.cs",
@@ -465,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Views\\Task\\Edit.cshtml",
               "RelativeDocumentMoniker": "PresentationLayer\\Views\\Task\\Edit.cshtml",
@@ -477,7 +487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "DashboardViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\Models\\DashboardViewModel.cs",
               "RelativeDocumentMoniker": "PresentationLayer\\Models\\DashboardViewModel.cs",
@@ -489,7 +499,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\PresentationLayer\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "PresentationLayer\\wwwroot\\css\\site.css",
@@ -501,7 +511,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "ToDoListDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\DataLayer\\ToDoListDbContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\ToDoListDbContext.cs",
@@ -510,18 +520,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T09:39:56.2Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "TaskItemContext.cs",
-              "DocumentMoniker": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\DataLayer\\TaskItemContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\TaskItemContext.cs",
-              "ToolTip": "C:\\Users\\Tedi\\source\\repos\\ToDoList\\DataLayer\\TaskItemContext.cs",
-              "RelativeToolTip": "DataLayer\\TaskItemContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T22:41:23.752Z"
             },
             {
               "$type": "Document",

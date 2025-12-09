@@ -86,7 +86,8 @@ namespace PresentationLayer.Controllers
                 Description = model.Description,
                 DueDate = model.DueDate,
                 CategoryId = model.CategoryId,
-                IsCompleted = false
+                IsCompleted = false,
+                UserId=1
             };
 
             _context.Tasks.Add(task);

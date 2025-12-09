@@ -9,3 +9,4 @@ C:\Users\Tedi\source\repos\ToDoList\BusinessLayer\obj\Debug\net9.0\BusinessLayer
 C:\Users\Tedi\source\repos\ToDoList\BusinessLayer\obj\Debug\net9.0\refint\BusinessLayer.dll
 C:\Users\Tedi\source\repos\ToDoList\BusinessLayer\obj\Debug\net9.0\BusinessLayer.pdb
 C:\Users\Tedi\source\repos\ToDoList\BusinessLayer\obj\Debug\net9.0\ref\BusinessLayer.dll
+C:\Users\Tedi\source\repos\ToDoList\BusinessLayer\obj\Debug\net9.0\BusinessLayer.sourcelink.json
