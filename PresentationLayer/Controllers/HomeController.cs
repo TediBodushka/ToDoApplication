@@ -55,31 +55,49 @@ namespace PresentationLayer.Controllers
 
         public IActionResult Profile()
         {
+            var total = _context.Tasks.Count();
+            var completed = _context.Tasks.Count(t => t.IsCompleted);
+            var notCompleted = total - completed;
+
             var vm = new ProfileViewModel
             {
+                TotalTasks = total,
+                FinishedTasks = completed,
+                NotCompletedTasks = notCompleted
             };
 
             return View(vm);
         }
+
         public IActionResult Calendar(DateTime? date)
         {
             DateTime selected = date?.Date ?? DateTime.Today;
             DateTime firstDayOfMonth = new DateTime(selected.Year, selected.Month, 1);
 
+            var monthTasks = _context.Tasks
+                .Include(t => t.Category)
+                .Where(t => t.DueDate.HasValue &&
+                            t.DueDate.Value.Month == selected.Month &&
+                            t.DueDate.Value.Year == selected.Year)
+                .ToList();
+
+            var dayTasks = monthTasks
+                .Where(t => t.DueDate.Value.Date == selected.Date)
+                .ToList();
+
             var vm = new CalendarViewModel
             {
                 CurrentMonth = firstDayOfMonth,
                 SelectedDate = selected,
-                Tasks = _context.Tasks
-                    .Include(t => t.Category)
-                    .Where(t => t.DueDate.HasValue &&
-                        t.DueDate.Value.Month == selected.Month &&
-                        t.DueDate.Value.Year == selected.Year)
-                    .ToList()
+                Tasks = monthTasks,        // за точките по календара
+                DayTasks = dayTasks        // 👈 това добавяме
             };
 
             return View(vm);
         }
+
+
+
 
 
         public IActionResult CreateTask()

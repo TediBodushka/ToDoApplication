@@ -11,12 +11,21 @@
     var firstDay = new DateTime(month.Year, month.Month, 1);
     var firstWeekday = (int)firstDay.DayOfWeek;
 }
-
-
 <div class="dashboard-container p-3">
     <h2 class="mb-4">Calendar</h2>
 
-    
+    <!-- 📌 МЕСЕЧНА НАВИГАЦИЯ -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <a asp-action="Calendar" asp-controller="Home"
+           asp-route-date="@Model.CurrentMonth.AddMonths(-1).ToString("yyyy-MM-dd")"
+           style="font-size:24px; text-decoration:none;">←</a>
+
+        <h3 style="margin:0;">@Model.CurrentMonth.ToString("MMMM yyyy")</h3>
+
+        <a asp-action="Calendar" asp-controller="Home"
+           asp-route-date="@Model.CurrentMonth.AddMonths(1).ToString("yyyy-MM-dd")"
+           style="font-size:24px; text-decoration:none;">→</a>
+    </div>
 
     <table class="table calendar-table text-center">
         <thead>
@@ -45,7 +54,11 @@
                     ).ToList();
 
                     <td class="calendar-day-cell">
-                        <a asp-action="Calendar" asp-route-date="@(new DateTime(month.Year, month.Month, day))"
+
+                        <!-- 📌 ДОБАВЕН САМО ISO формат -->
+                        <a asp-action="Calendar"
+                           asp-controller="Home"
+                           asp-route-date="@(new DateTime(month.Year, month.Month, day).ToString("yyyy-MM-dd"))"
                            class="day-number @(Model.SelectedDate.Date == new DateTime(month.Year, month.Month, day) ? "selected-day" : "")">
                             @day
                         </a>
@@ -74,20 +87,21 @@
             @foreach (var task in Model.Tasks.Where(t => t.DueDate.HasValue && t.DueDate.Value.Date == Model.SelectedDate.Date))
             {
                 var color = task.Category?.Color ?? "#3b82f6";
-                <a asp-action="TaskDetails" asp-route-id="@task.Id" class="task-card" style="background:@color;">
-                    <div class="task-checkbox"></div>
-                    <div class="task-info">
-                        <span class="task-title">@task.Title</span>
-                        <span class="task-date">@task.DueDate?.ToString("MMM d, yyyy")</span>
-                    </div>
+
+                <!-- 📌 САМО ДОБАВЕНО подравняване вляво, нищо НЕ е премахнато -->
+                <a asp-action="TaskDetails" asp-route-id="@task.Id"
+                   class="task-card"
+                   style="background:@color; text-align:left; display:flex; flex-direction:column; align-items:flex-start; padding:18px;">
+                    <span style="font-weight:600; font-size:18px; margin-bottom:5px;">@task.Title</span>
+                    <span style="font-size:14px; opacity:0.9;">@task.DueDate?.ToString("MMM d, yyyy")</span>
                 </a>
             }
         </div>
     }
 
     <div class="bottom-nav mt-5">
-        <a asp-action="Index">Tasks</a>
-        <a asp-action="Calendar" class="active">Calendar</a>
-        <a asp-action="Profile">Me</a>
+        <a asp-action="Index" asp-controller="Home">Tasks</a>
+        <a asp-action="Calendar" asp-controller="Home" class="active">Calendar</a>
+        <a asp-action="Profile" asp-controller="Home">Me</a>
     </div>
 </div>

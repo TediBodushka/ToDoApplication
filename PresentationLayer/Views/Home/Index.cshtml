@@ -36,8 +36,8 @@
     <div class="mb-3">
         <h3>
             @(Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted) == 0
-                ? "Hello, you have completed all tasks for today!"
-                : $"Hello, you have {Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
+                        ? "Hello, you have completed all tasks for today!"
+                        : $"Hello, you have {Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted)} tasks today!")
         </h3>
     </div>
 
@@ -72,25 +72,32 @@
             <div class="category-count">@completedCount</div>
         </div>
 
-        <div class="category-card card-red">
+        <div class="category-card card-red" onclick="toggleOverdue()" style="cursor:pointer;">
             <div class="category-title">Not Completed</div>
             <div class="category-count">@notCompletedCount</div>
         </div>
     </div>
 
-    <!-- Completed Collapse -->
+    <!-- Completed -->
     <div id="completedList" style="display:none; margin-bottom:20px;">
         @foreach (var task in Model.CompletedTasks)
         {
             <div class="task-card"
-                 style="background:#4CAF50; color:white; border-radius:10px; padding:14px; margin-bottom:14px; display:flex; align-items:center; gap:14px;">
-                
-                <!-- ❌ Махнато кръгче при Completed -->
+                 style="background:#4CAF50; color:white; border-radius:10px; padding:14px; margin-bottom:14px;">
+                <strong>@task.Title</strong>
+                <div>@task.DueDate?.ToString("MMM d, yyyy")</div>
+            </div>
+        }
+    </div>
 
-                <div>
-                    <strong>@task.Title</strong>
-                    <div>@task.DueDate?.ToString("MMM d, yyyy")</div>
-                </div>
+    <!-- Not Completed -->
+    <div id="overdueList" style="display:none; margin-bottom:20px;">
+        @foreach (var task in Model.Tasks.Where(t => !t.IsCompleted && t.DueDate < today))
+        {
+            <div class="task-card"
+                 style="background:#E53935; color:white; border-radius:10px; padding:14px; margin-bottom:14px;">
+                <strong>@task.Title</strong>
+                <div>@task.DueDate?.ToString("MMM d, yyyy")</div>
             </div>
         }
     </div>
@@ -107,83 +114,89 @@
         tasks = tasks.OrderBy(t => t.DueDate ?? DateTime.MaxValue).ToList();
     }
 
-    @if (!tasks.Any())
+    @foreach (var t in tasks)
     {
-        <div class="center-empty">
-            <p>No tasks yet.</p>
-            <p>Click + to add your first task.</p>
+        string bg;
+
+        if (t.IsCompleted) bg = "#4CAF50";
+        else if (t.DueDate < today) bg = "#E53935";
+        else bg = Model.Categories.First(c => c.Id == t.CategoryId).Color;
+
+        <div class="task-card"
+             style="background:@bg; color:white; border-radius:10px; padding:14px; margin-bottom:14px; position:relative;">
+
+            @if (!t.IsCompleted)
+            {
+                <a asp-action="CompleteTask" asp-route-id="@t.Id"
+                   style="position:absolute; left:18px; top:50%; transform:translateY(-50%);">
+                    <div class="task-check-circle"></div>
+                </a>
+            }
+
+            <div style="margin-left:55px;">
+                <a href="@Url.Action("TaskDetails", "Home", new { id = t.Id })"
+                   style="text-decoration:none; color:white; font-size:18px; font-weight:600;">
+                    @t.Title
+                </a>
+                <div style="font-size:14px; opacity:0.9;">@t.DueDate?.ToString("MMM d, yyyy")</div>
+            </div>
         </div>
     }
-    else
-    {
-        @foreach (var t in tasks)
-        {
-            string bg;
-
-            if (t.IsCompleted) bg = "#4CAF50";
-            else if (t.DueDate < today) bg = "#E53935";
-            else bg = Model.Categories.First(c => c.Id == t.CategoryId).Color;
-
-            <div class="task-card"
-                 style="background:@bg; color:white; border-radius:10px; padding:14px; margin-bottom:14px; position:relative;">
-
-                <!-- ✔ Кръгчето само ако НЕ е completed -->
-                @if (!t.IsCompleted)
-                {
-                    <a asp-action="CompleteTask" asp-route-id="@t.Id"
-                       style="position:absolute; left:18px; top:50%; transform:translateY(-50%); text-decoration:none;">
-                        <div class="task-check-circle"></div>
-                    </a>
-                }
-
-                <div style="margin-left:55px; display:flex; justify-content:space-between; align-items:center;">
-                    <a href="@Url.Action("TaskDetails", new { id = t.Id })"
-                       style="text-decoration:none; color:white; font-size:18px; font-weight:600;">
-                        @t.Title
-                    </a>
-
-                    <div style="display:flex; gap:10px; font-size:21px;">
-                        <a asp-action="EditTask" asp-route-id="@t.Id"
-                           onclick="event.stopPropagation();"
-                           style="text-decoration:none; color:white;">✏️</a>
-
-                        <a asp-action="DeleteTask" asp-route-id="@t.Id"
-                           onclick="event.stopPropagation(); return confirm('Delete this task?');"
-                           style="text-decoration:none; color:white;">🗑️</a>
-                    </div>
-                </div>
-
-                <div style="margin-left:55px; font-size:14px; opacity:0.9;">
-                    @t.DueDate?.ToString("MMM d, yyyy")
-                </div>
-            </div>
-        }
-    }
 </div>
 
-<!-- FAB MENU -->
-<div id="fabMenu" class="fab-menu">
-    <button onclick="location.href='@Url.Action("CreateTask")'">Create a task</button>
-    <button onclick="location.href='@Url.Action("CreateCategory")'">Create a category</button>
-</div>
-
+<!-- + FAB BUTTON -->
 <button class="fab-btn" onclick="toggleFabMenu()">+</button>
 
+<!-- FAB MENU (само добавено, НЕ сменено) -->
+<div id="fabMenu" style="
+    display:none;
+    position:fixed;
+    bottom:100px;
+    right:30px;
+    background:white;
+    border-radius:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    padding:12px;
+    z-index:9999;">
+
+    <button onclick="location.href='@Url.Action("CreateTask", "Home")'"
+            style="width:140px; padding:8px; border:none; background:#4287f5; color:white; border-radius:8px; margin-bottom:8px;">
+        Add Task
+    </button>
+
+    <button onclick="location.href='@Url.Action("CreateCategory", "Home")'"
+            style="width:140px; padding:8px; border:none; background:#34c759; color:white; border-radius:8px;">
+        Add Category
+    </button>
+</div>
+
+<footer class="bottom-nav">
+    <a asp-action="Index" asp-controller="Home" class="nav-item nav-active"><span>Tasks</span></a>
+    <a asp-action="Calendar" asp-controller="Home" class="nav-item"><span>Calendar</span></a>
+    <a asp-action="Profile" asp-controller="Home" class="nav-item"><span>Me</span></a>
+</footer>
+
 <script>
-function toggleFabMenu() {
-    document.getElementById("fabMenu").classList.toggle("show");
-}
-document.addEventListener("click", function (e) {
-    const menu = document.getElementById("fabMenu");
-    const fab = document.querySelector(".fab-btn");
-
-    if (!menu.contains(e.target) && !fab.contains(e.target)) {
-        menu.classList.remove("show");
+    function toggleCompleted() {
+        document.getElementById("completedList").style.display =
+            document.getElementById("completedList").style.display === "none" ? "block" : "none";
     }
-});
 
-function toggleCompleted() {
-    const list = document.getElementById("completedList");
-    list.style.display = list.style.display === "none" ? "block" : "none";
-}
+    function toggleOverdue() {
+        document.getElementById("overdueList").style.display =
+            document.getElementById("overdueList").style.display === "none" ? "block" : "none";
+    }
+
+    function toggleFabMenu() {
+        const menu = document.getElementById("fabMenu");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    document.addEventListener("click", function (e) {
+        const menu = document.getElementById("fabMenu");
+        const fab = document.querySelector(".fab-btn");
+        if (!menu.contains(e.target) && !fab.contains(e.target)) {
+            menu.style.display = "none";
+        }
+    });
 </script>

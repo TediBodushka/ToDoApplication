@@ -14,7 +14,7 @@ public class CalendarController : Controller
 
     public IActionResult Index(DateTime? date)
     {
-        var selected = date ?? DateTime.Today; // change
+        var selected = date ?? DateTime.Today;
 
         var firstDay = new DateTime(selected.Year, selected.Month, 1);
         var daysInMonth = DateTime.DaysInMonth(selected.Year, selected.Month);
@@ -22,7 +22,7 @@ public class CalendarController : Controller
         var vm = new CalendarViewModel
         {
             CurrentMonth = firstDay,
-            SelectedDate = selected,     // 👈 IMPORTANT
+            SelectedDate = selected,
             CalendarDays = Enumerable.Range(0, daysInMonth)
                                      .Select(i => firstDay.AddDays(i))
                                      .ToList(),
@@ -31,8 +31,7 @@ public class CalendarController : Controller
                 .ToList()
         };
 
-        return View(vm);
+        // 👇 Единствената поправка
+        return View("Calendar", vm);
     }
-
 }
-

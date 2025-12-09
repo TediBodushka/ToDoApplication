@@ -1,25 +1,72 @@
 ﻿@model PresentationLayer.Models.ProfileViewModel
 @{
     ViewData["Title"] = "Profile";
+
+    double percentDone = Model.TotalTasks == 0 ? 0 : (double)Model.FinishedTasks / Model.TotalTasks * 100;
+    double percentNotDone = Model.TotalTasks == 0 ? 0 : (double)Model.NotCompletedTasks / Model.TotalTasks * 100;
 }
 
-<h2 class="mb-4">My Stats</h2>
+<h2 class="mb-4" style="font-weight:700;">My Stats</h2>
 
-<div class="card p-4 shadow" style="width:350px;">
-    <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between">
-            <span>Total tasks:</span>
-            <strong>@Model.TotalTasks</strong>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-            <span>Completed:</span>
-            <strong>@Model.FinishedTasks</strong>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-            <span>Categories:</span>
-            <strong>@Model.Categories</strong>
-        </li>
-    </ul>
+<!-- Top Boxes -->
+<div style="display:flex; gap:20px; margin-bottom:30px;">
+
+    <div style="flex:1; background:#4287f5; color:white; padding:22px; border-radius:16px; text-align:center;">
+        <h4 style="margin:0;">Total Tasks</h4>
+        <p style="font-size:32px; font-weight:700;">@Model.TotalTasks</p>
+    </div>
+
+    <div style="flex:1; background:#4CAF50; color:white; padding:22px; border-radius:16px; text-align:center;">
+        <h4 style="margin:0;">Completed</h4>
+        <p style="font-size:32px; font-weight:700;">@Model.FinishedTasks</p>
+    </div>
+
+    <div style="flex:1; background:#E53935; color:white; padding:22px; border-radius:16px; text-align:center;">
+        <h4 style="margin:0;">Not Completed</h4>
+        <p style="font-size:32px; font-weight:700;">@Model.NotCompletedTasks</p>
+    </div>
+
 </div>
 
-<a asp-action="Index" class="btn btn-primary mt-3">z Back to Dashboard</a>
+<!-- Circle Stats -->
+<div style="display:flex; justify-content:center; gap:50px; margin-bottom:40px;">
+
+    <!-- Completed Circle -->
+    <div style="text-align:center;">
+        <svg width="130" height="130">
+            <circle cx="65" cy="65" r="55" stroke="#e0e0e0" stroke-width="13" fill="none" />
+            <circle cx="65" cy="65" r="55" stroke="#4CAF50" stroke-width="13" fill="none"
+                    stroke-linecap="round" stroke-dasharray="345"
+                    stroke-dashoffset="@((100 - percentDone) / 100 * 345)"
+                    style="transition: stroke-dashoffset 1.4s ease;" />
+        </svg>
+        <div style="font-weight:700;">@percentDone.ToString("0")%</div>
+        <span style="font-size:13px;">Completed</span>
+    </div>
+
+    <!-- Not Completed Circle -->
+    <div style="text-align:center;">
+        <svg width="130" height="130">
+            <circle cx="65" cy="65" r="55" stroke="#e0e0e0" stroke-width="13" fill="none" />
+            <circle cx="65" cy="65" r="55" stroke="#E53935" stroke-width="13" fill="none"
+                    stroke-linecap="round" stroke-dasharray="345"
+                    stroke-dashoffset="@((100 - percentNotDone) / 100 * 345)"
+                    style="transition: stroke-dashoffset 1.4s ease;" />
+        </svg>
+        <div style="font-weight:700;">@percentNotDone.ToString("0")%</div>
+        <span style="font-size:13px;">Not Completed</span>
+    </div>
+
+</div>
+
+<!-- Back Button -->
+<a asp-action="Index" class="btn btn-dark mt-3" style="border-radius:10px; padding:10px 24px;">
+    ← Back to Dashboard
+</a>
+
+<!-- Bottom Menu (kept) -->
+<footer class="bottom-nav" style="bottom:0;">
+    <a asp-action="Index" asp-controller="Home">Tasks</a>
+    <a asp-action="Calendar" asp-controller="Home"> Calendar</a>
+    <a asp-action="Profile" asp-controller="Home" class="active"> Me</a>
+</footer>

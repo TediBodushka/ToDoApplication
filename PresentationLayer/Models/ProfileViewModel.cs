@@ -4,7 +4,8 @@
     {
         public int TotalTasks { get; set; }
         public int FinishedTasks { get; set; }
-        public int NotFinishedTasks { get; set; }
-        public int Categories { get; set; }
+        public int NotCompletedTasks { get; set; }  
     }
+
+
 }
