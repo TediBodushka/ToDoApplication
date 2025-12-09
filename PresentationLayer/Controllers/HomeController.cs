@@ -22,12 +22,14 @@ namespace PresentationLayer.Controllers
             var vm = new DashboardViewModel
             {
                 Categories = _context.Categories.ToList(),
-                Tasks = _context.Tasks.ToList(),
+                Tasks = _context.Tasks.Where(t => !t.IsCompleted).ToList(),
+                CompletedTasks = _context.Tasks.Where(t => t.IsCompleted).ToList(),
                 SelectedCategoryId = categoryId
             };
 
             return View(vm);
         }
+
 
         public IActionResult Profile()
         {
@@ -87,7 +89,7 @@ namespace PresentationLayer.Controllers
                 DueDate = model.DueDate,
                 CategoryId = model.CategoryId,
                 IsCompleted = false,
-                UserId=1
+                UserId = 1
             };
 
             _context.Tasks.Add(task);
@@ -131,6 +133,18 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult CompleteTask(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+
+            if (task == null)
+                return NotFound();
+
+            task.IsCompleted = true;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
 
         public IActionResult CreateCategory()
@@ -170,7 +184,7 @@ namespace PresentationLayer.Controllers
             if (category == null) return NotFound();
 
             category.Title = title;
-           
+
 
             _context.SaveChanges();
             return RedirectToAction("Index");

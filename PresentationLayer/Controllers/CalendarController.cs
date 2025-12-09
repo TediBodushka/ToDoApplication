@@ -1,5 +1,6 @@
 ﻿using DataLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PresentationLayer.Models;
 
 public class CalendarController : Controller
@@ -11,16 +12,27 @@ public class CalendarController : Controller
         _taskContext = taskContext;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(DateTime? date)
     {
-        var current = DateTime.Now;
+        var selected = date ?? DateTime.Today; // change
+
+        var firstDay = new DateTime(selected.Year, selected.Month, 1);
+        var daysInMonth = DateTime.DaysInMonth(selected.Year, selected.Month);
 
         var vm = new CalendarViewModel
         {
-            CurrentMonth = new DateTime(current.Year, current.Month, 1),
-            Tasks = _taskContext.Tasks.ToList()
+            CurrentMonth = firstDay,
+            SelectedDate = selected,     // 👈 IMPORTANT
+            CalendarDays = Enumerable.Range(0, daysInMonth)
+                                     .Select(i => firstDay.AddDays(i))
+                                     .ToList(),
+            Tasks = _taskContext.Tasks
+                .Include(t => t.Category)
+                .ToList()
         };
 
         return View(vm);
     }
+
 }
+

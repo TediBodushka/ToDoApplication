@@ -1,4 +1,8 @@
-﻿@model PresentationLayer.Models.CalendarViewModel
+﻿@model CalendarViewModel
+@section Styles {
+    <link rel="stylesheet" href="~/css/StyleSheet.css" asp-append-version="true" />
+}
+
 @{
     ViewData["Title"] = "Calendar";
 
@@ -7,6 +11,7 @@
     var firstDay = new DateTime(month.Year, month.Month, 1);
     var firstWeekday = (int)firstDay.DayOfWeek;
 }
+
 
 <div class="dashboard-container p-3">
     <h2 class="mb-4">Calendar</h2>

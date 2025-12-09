@@ -6,11 +6,11 @@ using BusinessLayer;
     {
         public class DashboardViewModel
         {
-            public List<Category> Categories { get; set; } = new();
-            public List<TaskItem> Tasks { get; set; } = new();
-            public int? SelectedCategoryId { get; set; }
-            public DateTime SelectedDate { get; set; }
-
+        public List<Category> Categories { get; set; } = new();
+        public List<TaskItem> Tasks { get; set; } = new();
+        public List<TaskItem> CompletedTasks { get; set; } = new();
+        public int? SelectedCategoryId { get; set; }
+        public DateTime SelectedDate { get; set; }
     }
 }
 

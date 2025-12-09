@@ -10,11 +10,10 @@
         c => Model.Tasks.Count(t => t.CategoryId == c.Id && !t.IsCompleted)
     );
 
-    int completedCount = Model.Tasks.Count(t => t.IsCompleted);
+    int completedCount = Model.CompletedTasks.Count;
     int notCompletedCount = Model.Tasks.Count(t =>
         !t.IsCompleted && t.DueDate.HasValue && t.DueDate.Value.Date < today);
 }
-
 
 @functions {
     string ColorForCategory(string title)
@@ -34,7 +33,6 @@
 
 <div class="dashboard-container container-fluid pt-4">
 
-    <!-- Greeting -->
     <div class="mb-3">
         <h3>
             @(Model.Tasks.Count(t => t.DueDate?.Date == today && !t.IsCompleted) == 0
@@ -43,12 +41,10 @@
         </h3>
     </div>
 
-    <!-- Categories Title -->
     <div class="mb-2">
         <h5>Categories</h5>
     </div>
 
-    <!-- Categories Row -->
     <div class="category-row mb-4">
         @foreach (var cat in Model.Categories)
         {
@@ -56,12 +52,9 @@
             var count = categoryCounts[cat.Id];
 
             <div class="category-card @colorClass" style="position:relative;">
-
-                <!-- Edit Category -->
                 <a asp-controller="Category" asp-action="Edit" asp-route-id="@cat.Id"
                    style="position:absolute; right:35px; top:6px; font-size:18px;">✏️</a>
 
-                <!-- Delete Category -->
                 <a asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id"
                    onclick="return confirm('Delete this category and ALL tasks in it?');"
                    style="position:absolute; right:8px; top:6px; font-size:18px;">🗑️</a>
@@ -74,8 +67,8 @@
             </div>
         }
 
-        <!-- Completed / Not Completed Synthetic Categories -->
-        <div class="category-card card-green">
+        <!-- Completed category now acts as toggler -->
+        <div class="category-card card-green" onclick="toggleCompleted()" style="cursor:pointer;">
             <div class="category-title">Completed</div>
             <div class="category-count">@completedCount</div>
         </div>
@@ -86,15 +79,36 @@
         </div>
     </div>
 
-    <!-- Tasks Title -->
-    <div class="mb-3">
+    <!-- Collapsible Completed Tasks -->
+    <div id="completedList" style="display:none; margin-top:10px;">
+        @foreach (var task in Model.CompletedTasks)
+        {
+            <div class="task-card"
+                 style="background:#4CAF50; color:white; border-radius:10px; padding:14px;
+                            margin-bottom:14px; position:relative;">
+                <div style="position:absolute; left:14px; top:18px;">
+                    <div class="task-check-circle completed"></div>
+                </div>
+
+                <div style="margin-left:45px;">
+                    <strong>@task.Title</strong>
+                    <div style="font-size:14px; opacity:0.9;">
+                        @task.DueDate?.ToString("MMM d, yyyy")
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="mb-3 mt-4">
         <h5>My tasks</h5>
     </div>
 
     @{
         var tasks = Model.SelectedCategoryId.HasValue
-        ? Model.Tasks.Where(t => t.CategoryId == Model.SelectedCategoryId.Value).ToList()
-        : Model.Tasks.ToList();
+        ? Model.Tasks.Where(t => t.CategoryId == Model.SelectedCategoryId.Value && !t.IsCompleted).ToList()
+        : Model.Tasks.Where(t => !t.IsCompleted).ToList();
 
         tasks = tasks.OrderBy(t => t.DueDate ?? DateTime.MaxValue).ToList();
     }
@@ -112,34 +126,31 @@
         {
             string bg;
 
-            if (t.IsCompleted) bg = "#4CAF50";
-            else if (t.DueDate < today) bg = "#E53935";
+            if (t.DueDate < today) bg = "#E53935";
             else bg = Model.Categories.First(c => c.Id == t.CategoryId).Color;
 
             <div class="task-card"
                  style="background:@bg; color:white; border-radius:10px; padding:14px;
-                                margin-bottom:14px; position:relative;">
+                                        margin-bottom:14px; position:relative;">
 
-                <!-- Title + Icons Row -->
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <a asp-action="CompleteTask" asp-route-id="@t.Id"
+                   style="position:absolute; left:14px; top:18px; text-decoration:none;">
+                    <div class="task-check-circle"></div>
+                </a>
 
-                    <!-- Title opens details -->
+                <div style="margin-left:45px; display:flex; justify-content:space-between; align-items:center;">
                     <a href="@Url.Action("TaskDetails", new { id = t.Id })"
                        style="text-decoration:none; color:inherit; font-size:18px; font-weight:600;">
                         @t.Title
                     </a>
 
-                    <!-- Icons -->
                     <div style="display:flex; gap:10px; font-size:21px;">
-
-                        <!-- Edit -->
                         <a asp-action="EditTask" asp-route-id="@t.Id"
                            onclick="event.stopPropagation();"
                            style="text-decoration:none; color:white;">
                             ✏️
                         </a>
 
-                        <!-- Delete -->
                         <a asp-action="DeleteTask" asp-route-id="@t.Id"
                            onclick="event.stopPropagation(); return confirm('Delete this task?');"
                            style="text-decoration:none; color:white;">
@@ -148,83 +159,48 @@
                     </div>
                 </div>
 
-                <!-- Date -->
-                <div style="font-size:14px; opacity:0.9;">
+                <div style="margin-left:45px; font-size:14px; opacity:0.9;">
                     @t.DueDate?.ToString("MMM d, yyyy")
                 </div>
             </div>
         }
-
     }
 </div>
+
 <style>
-    .task-card a {
-        color: white !important;
+    .task-check-circle {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 3px solid white;
+        transition: 0.25s;
     }
 
-        .task-card a:hover {
-            opacity: 0.7;
+        .task-check-circle:hover {
+            background: rgba(255,255,255,0.25);
+            cursor: pointer;
         }
+
+        .task-check-circle.completed {
+            background: white;
+            border-color: white;
+            position: relative;
+        }
+
+            .task-check-circle.completed:after {
+                content: '✔';
+                font-size: 14px;
+                font-weight: 800;
+                color: #4CAF50;
+                position: absolute;
+                top: -1px;
+                left: 4px;
+            }
 </style>
 
-
-<!-- Floating FAB Menu -->
-<div id="fabMenu" class="fab-menu">
-    <button onclick="location.href='@Url.Action("CreateTask")'">Create a task</button>
-    <button onclick="location.href='@Url.Action("CreateCategory")'">Create a category</button>
-</div>
-
-<button class="fab-btn" onclick="toggleFabMenu()">+</button>
-
-
-<nav class="bottom-nav">
-    <a asp-controller="Home" asp-action="Index"
-       class="@(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
-        Tasks
-    </a>
-
-    <a asp-controller="Home" asp-action="Calendar"
-       class="@(ViewContext.RouteData.Values["Action"]?.ToString() == "Calendar" ? "active" : "")">
-        Calendar
-    </a>
-
-    <a asp-controller="Home" asp-action="Profile"
-       class="@(ViewContext.RouteData.Values["Action"]?.ToString() == "Profile" ? "active" : "")">
-        Me
-    </a>
-</nav>
-
-@section Scripts {
-    <script>
-        function toggleFabMenu() {
-            document.getElementById("fabMenu").classList.toggle("show");
-        }
-        document.addEventListener("click", function (e) {
-            const menu = document.getElementById("fabMenu");
-            const fab = document.querySelector(".fab-btn");
-
-            if (!menu.contains(e.target) && !fab.contains(e.target)) {
-                menu.classList.remove("show");
-            }
-        });
-    </script>
-    
-    <script>
-        $("#addTaskForm").submit(function (e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: "/Home/CreateTask",
-                method: "POST",
-                data: $(this).serialize(),
-                success: function (html) {
-                    $("#task-list").append(html);
-                    $("#addTaskModal").modal("hide");
-                    $("#addTaskForm")[0].reset();
-                }
-            });
-        });
-    </script>
-
-
-}
+<script>
+    function toggleCompleted() {
+        const list = document.getElementById("completedList");
+        list.style.display = list.style.display === "none" ? "block" : "none";
+    }
+</script>
