@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <!-- Completed -->
+    
     <div id="completedList" style="display:none; margin-bottom:20px;">
         @foreach (var task in Model.CompletedTasks.Cast<TaskItem>())
         {
@@ -93,7 +93,7 @@
         }
     </div>
 
-    <!-- Not Completed (Overdue Only) -->
+   
     <div id="overdueList" style="display:none; margin-bottom:20px;">
         @foreach (var task in Model.Tasks.Cast<TaskItem>().Where(t => !t.IsCompleted && t.DueDate < today))
         {
