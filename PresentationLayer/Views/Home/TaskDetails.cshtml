@@ -1,52 +1,38 @@
-﻿@model PresentationLayer.Models.TaskListViewModel
+﻿@model BusinessLayer.TaskItem
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using BusinessLayer
 
 <div class="modal-page">
     <div class="modal-card">
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h2>Task details</h2>
 
-            <form asp-action="DeleteTask" method="post">
-                <input type="hidden" name="id" value="@Model.Id" />
-                <button type="submit" class="btn btn-link text-danger" title="Delete">
-                    <i class="bi bi-trash"></i> 
-                </button>
-            </form>
+            <a asp-action="DeleteTask" asp-route-id="@Model.Id" onclick="return confirm('Delete?')"
+               class="btn btn-link text-danger">
+                🗑️
+            </a>
         </div>
 
-        <form asp-action="UpdateTask" method="post">
+        <form asp-action="EditTask" method="post">
             <input type="hidden" name="Id" value="@Model.Id" />
 
-            <div class="mb-3">
-                <label class="form-label">Title</label>
-                <input asp-for="Title" class="form-control" />
-            </div>
+            <label>Title</label>
+            <input asp-for="Title" class="form-control" />
 
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select asp-for="CategoryId" class="form-select"
-                        asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))">
-                </select>
-            </div>
+            <label>Category</label>
+            <select asp-for="CategoryId" class="form-select"
+                    asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))">
+            </select>
 
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            </div>
+            <label>Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
 
-            <div class="mb-3">
-                <label class="form-label">Due date</label>
-                <input asp-for="DueDate" type="date" class="form-control" />
-            </div>
+            <label>Due date</label>
+            <input asp-for="DueDate" type="date" class="form-control" />
 
-            <div class="modal-footer">
-                <button type="button" class="btn-pill btn-gray"
-                        onclick="location.href='@Url.Action("Index", "Home")'">
-                    Cancel
-                </button>
-                <button type="submit" class="btn-pill btn-green">
-                    Save
-                </button>
+            <div class="modal-footer mt-3">
+                <a href="@Url.Action("Index", "Home")" class="btn-pill btn-gray">Cancel</a>
+                <button type="submit" class="btn-pill btn-green">Save</button>
             </div>
         </form>
     </div>

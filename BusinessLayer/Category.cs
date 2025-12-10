@@ -16,7 +16,7 @@ namespace BusinessLayer
         [MaxLength(50)]
         public string Title { get; set; }
 
-        [Required]
+        
         public string? Color { get; set; }
         public virtual ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 

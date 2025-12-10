@@ -1,0 +1,27 @@
+﻿@model TaskItem
+@{
+    ViewBag.Title = "Edit Task";
+}
+
+<h3>Edit Task</h3>
+
+<form asp-action="EditTask" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label>Title</label>
+    <input class="form-control mb-2" asp-for="Title" />
+
+    <label>Description</label>
+    <textarea class="form-control mb-2" asp-for="Description"></textarea>
+
+    <label>Due Date</label>
+    <input class="form-control mb-2" asp-for="DueDate" type="date" />
+
+    <label>Category</label>
+    <select asp-for="CategoryId"
+            asp-items="@(new SelectList(ViewBag.Categories, "Id", "Title"))"
+            class="form-control mb-3">
+    </select>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>

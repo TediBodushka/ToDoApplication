@@ -75,6 +75,10 @@ namespace DataLayer
 
             dbContext.SaveChanges();
         }
+        private Category Read(int? id, bool useNavigationalProperties)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Delete(int key)
         {

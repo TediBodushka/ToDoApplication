@@ -25,17 +25,17 @@ namespace BusinessLayer
         public bool IsCompleted { get; set; } = false;
 
         [Required]
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         [Required]
         public int UserId { get; set; }
 
         [ForeignKey (nameof(CategoryId))]
-        public virtual Category Category { get; set; }
+        public virtual Category? Category { get; set; }
 
 
         [ForeignKey(nameof(UserId))]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
         public TaskItem()
         {

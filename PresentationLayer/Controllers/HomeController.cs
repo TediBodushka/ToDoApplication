@@ -14,7 +14,6 @@ namespace PresentationLayer.Controllers
         {
             _context = context;
         }
-
         public IActionResult Index(int? categoryId = null)
         {
             var tasks = _context.Tasks
@@ -38,6 +37,9 @@ namespace PresentationLayer.Controllers
 
             return View(model);
         }
+
+
+
 
         public IActionResult CompleteTask(int id)
         {
@@ -125,7 +127,7 @@ namespace PresentationLayer.Controllers
             var task = new TaskItem
             {
                 Title = model.Title,
-                Description = model.Description,
+                Description = string.IsNullOrWhiteSpace(model.Description) ? string.Empty : model.Description,
                 DueDate = model.DueDate,
                 CategoryId = model.CategoryId,
                 IsCompleted = false,
@@ -148,6 +150,7 @@ namespace PresentationLayer.Controllers
             return View(task);
         }
 
+
         [HttpPost]
         public IActionResult EditTask(TaskItem model)
         {
@@ -162,8 +165,6 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
         public IActionResult DeleteTask(int id)
         {
             var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
@@ -173,6 +174,16 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult TaskDetails(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+            if (task == null) return NotFound();
+
+            ViewBag.Categories = _context.Categories.ToList();
+            return View(task);
+        }
+
+
 
 
         public IActionResult CreateCategory()
@@ -196,27 +207,39 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        // GET: Show the Edit Category form
         public IActionResult EditCategory(int id)
         {
+            // Зареждаме категорията
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
-            if (category == null) return NotFound();
+            if (category == null)
+                return NotFound();
 
             return View(category);
         }
 
+        // POST: Save the changes
         [HttpPost]
-        public IActionResult EditCategory(int id, string title)
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCategory(Category model)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.Id == id);
-            if (category == null) return NotFound();
+            if (!ModelState.IsValid)
+                return View(model);
 
-            category.Title = title;
+            // Зареждаме категорията от базата
+            var category = _context.Categories.FirstOrDefault(c => c.Id == model.Id);
+            if (category == null)
+                return NotFound();
 
+            // Актуализираме полетата
+            category.Title = model.Title;
+            category.Color = model.Color ?? "#000000"; // безопасно за NULL
 
             _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
+
 
         public IActionResult DeleteCategory(int id)
         {
@@ -237,15 +260,6 @@ namespace PresentationLayer.Controllers
             _context.Categories.Remove(category);
             _context.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-
-        public IActionResult TaskDetails(int id)
-        {
-            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
-            if (task == null) return NotFound();
-
-            return View(task);
         }
     }
 }

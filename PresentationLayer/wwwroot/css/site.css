@@ -356,7 +356,7 @@ body {
     background: #FF4D4D;
     color: white;
 }
-/* За Completed в списък горе */
+
 .completed-task {
     opacity: 0.65;
     text-decoration: line-through;
@@ -367,10 +367,42 @@ body {
     height: 26px;
     border-radius: 50%;
     border: 3px solid white;
-    background: rgba(255,255,255,0.25); /* 👈 добавено, не променя дизайна, само го прави видимо */
+    background: rgba(255,255,255,0.25); 
     transition: 0.25s;
 }
 
     .task-check-circle:hover {
         background: rgba(255,255,255,0.45);
     }
+
+.icon-edit,
+.icon-delete,
+.icon-more {
+    position: absolute;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+.icon-edit {
+    right: 90px;
+}
+
+.icon-delete {
+    right: 55px;
+}
+
+.icon-more {
+    right: 15px;
+}
+
+    .icon-edit:hover,
+    .icon-delete:hover,
+    .icon-more:hover {
+        opacity: 0.9;
+        transform: scale(1.25);
+    }
+
+

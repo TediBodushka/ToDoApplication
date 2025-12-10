@@ -135,7 +135,6 @@
     "schemas": {
       "Category": {
         "required": [
-          "color",
           "title"
         ],
         "type": "object",
@@ -150,8 +149,8 @@
             "type": "string"
           },
           "color": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "tasks": {
             "type": "array",
