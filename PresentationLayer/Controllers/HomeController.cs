@@ -91,8 +91,8 @@ namespace PresentationLayer.Controllers
             {
                 CurrentMonth = firstDayOfMonth,
                 SelectedDate = selected,
-                Tasks = monthTasks,        // за точките по календара
-                DayTasks = dayTasks        // 👈 това добавяме
+                Tasks = monthTasks,     
+                DayTasks = dayTasks       
             };
 
             return View(vm);
@@ -207,10 +207,10 @@ namespace PresentationLayer.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        // GET: Show the Edit Category form
+       
         public IActionResult EditCategory(int id)
         {
-            // Зареждаме категорията
+           
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
             if (category == null)
                 return NotFound();
@@ -218,7 +218,7 @@ namespace PresentationLayer.Controllers
             return View(category);
         }
 
-        // POST: Save the changes
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditCategory(Category model)
@@ -226,14 +226,13 @@ namespace PresentationLayer.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            // Зареждаме категорията от базата
             var category = _context.Categories.FirstOrDefault(c => c.Id == model.Id);
             if (category == null)
                 return NotFound();
 
-            // Актуализираме полетата
+            
             category.Title = model.Title;
-            category.Color = model.Color ?? "#000000"; // безопасно за NULL
+            category.Color = model.Color ?? "#000000"; 
 
             _context.SaveChanges();
 

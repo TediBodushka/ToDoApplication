@@ -30,8 +30,6 @@ public class CalendarController : Controller
                 .Include(t => t.Category)
                 .ToList()
         };
-
-        // 👇 Единствената поправка
         return View("Calendar", vm);
     }
 }

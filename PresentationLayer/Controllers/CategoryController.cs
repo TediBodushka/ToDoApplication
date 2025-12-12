@@ -14,15 +14,11 @@ namespace PresentationLayer.Controllers
             _context = context;
         }
 
-        // LIST not needed – categories се показват в Home > Index
-
-        // CREATE GET
         public IActionResult Create()
         {
             return View();
         }
 
-        // CREATE POST
         [HttpPost]
         public IActionResult Create(string title, string color)
         {
@@ -43,7 +39,6 @@ namespace PresentationLayer.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // EDIT GET
         public IActionResult Edit(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
@@ -52,7 +47,6 @@ namespace PresentationLayer.Controllers
             return View(category);
         }
 
-        // EDIT POST
         [HttpPost]
         public IActionResult Edit(int id, string title, string color)
         {
@@ -72,7 +66,7 @@ namespace PresentationLayer.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // DELETE GET (confirmation)
+ 
         public IActionResult Delete(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
@@ -81,14 +75,14 @@ namespace PresentationLayer.Controllers
             return View(category);
         }
 
-        // DELETE POST (with delete tasks inside)
+       
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Id == id);
             if (category == null) return NotFound();
 
-            // delete all tasks belonging to this category
+          
             var tasks = _context.Tasks.Where(t => t.CategoryId == id).ToList();
             _context.Tasks.RemoveRange(tasks);
 

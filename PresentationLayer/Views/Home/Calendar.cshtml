@@ -14,7 +14,7 @@
 <div class="dashboard-container p-3">
     <h2 class="mb-4">Calendar</h2>
 
-    <!-- 📌 МЕСЕЧНА НАВИГАЦИЯ -->
+
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <a asp-action="Calendar" asp-controller="Home"
            asp-route-date="@Model.CurrentMonth.AddMonths(-1).ToString("yyyy-MM-dd")"
@@ -55,7 +55,7 @@
 
                     <td class="calendar-day-cell">
 
-                        <!-- 📌 ДОБАВЕН САМО ISO формат -->
+                       
                         <a asp-action="Calendar"
                            asp-controller="Home"
                            asp-route-date="@(new DateTime(month.Year, month.Month, day).ToString("yyyy-MM-dd"))"
@@ -88,7 +88,6 @@
             {
                 var color = task.Category?.Color ?? "#3b82f6";
 
-                <!-- 📌 САМО ДОБАВЕНО подравняване вляво, нищо НЕ е премахнато -->
                 <a asp-action="TaskDetails" asp-route-id="@task.Id"
                    class="task-card"
                    style="background:@color; text-align:left; display:flex; flex-direction:column; align-items:flex-start; padding:18px;">
